@@ -41,7 +41,7 @@ function Footer() {
             <Flex align="center" mt={2}>
               <FiMail size={20} />
               <Link href="#" ml={2}>
-                Email
+                E-mail
               </Link>
             </Flex>
           </Box>
