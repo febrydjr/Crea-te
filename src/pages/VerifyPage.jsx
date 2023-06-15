@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -10,7 +10,26 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-function VerifyPage({ isAuthenticated }) {
+function withAuth(Component) {
+  return function WrappedComponent(props) {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }, [isAuthenticated, navigate]);
+
+    if (!isAuthenticated) {
+      return null; // or any other placeholder while checking authentication
+    }
+
+    return <Component {...props} />;
+  };
+}
+
+function VerifyPage() {
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerified, setIsVerified] = useState(false);
   const toast = useToast();
@@ -30,14 +49,6 @@ function VerifyPage({ isAuthenticated }) {
       isClosable: true,
     });
   };
-
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
-
-  if (isVerified) {
-    return <Navigate to="/landing" />;
-  }
 
   return (
     <Box px={6} py={4}>

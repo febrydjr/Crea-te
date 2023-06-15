@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -15,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import ArticleCard from "./ArticleCard";
 import articlesData from "../data/articles";
+import FavoritesPage from "./FavoritesPage";
 
 function withAuth(Component) {
   return function WrappedComponent(props) {
@@ -36,7 +38,6 @@ function withAuth(Component) {
 }
 
 function MyBlogPage() {
-  const [favoriteArticles, setFavoriteArticles] = useState([]);
   const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -120,23 +121,16 @@ function MyBlogPage() {
           My Blog
         </Heading>
         <Box display="flex" alignItems="center">
-          {/* Profile Picture */}
-
-          {/* Buttons */}
           <Button
             size="sm"
-            variant="outline"
+            variant="solid"
+            colorScheme="teal"
             mr={2}
             onClick={() => navigate("/create-article")}
           >
             Create Article
           </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            mr={2}
-            onClick={() => navigate("/profile")}
-          >
+          <Button as={Link} to="/profile" size="sm" variant="outline" mr={2}>
             Profile
           </Button>
           <Button
@@ -167,21 +161,20 @@ function MyBlogPage() {
       </Box>
 
       <Box mb={4}>
-        {/* Search */}
         <InputGroup>
           <Input
             placeholder="Search by title or author"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <Button size="sm" variant="outline" onClick={handleSearch}>
+
+          <Button ml={2} size="md" variant="outline" onClick={handleSearch}>
             Search
           </Button>
         </InputGroup>
       </Box>
 
       <Box mb={4}>
-        {/* Filters */}
         <FormControl id="category-filter" mb={2}>
           <FormLabel>Filter by Category</FormLabel>
           <Select
@@ -213,16 +206,6 @@ function MyBlogPage() {
             article={article}
             onToggleFavorite={handleToggleFavorite}
             isFavorite={false}
-          />
-        ))}
-      </SimpleGrid>
-      <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={4}>
-        {favoriteArticles?.map((article) => (
-          <ArticleCard
-            key={article.id}
-            article={article}
-            onToggleFavorite={handleToggleFavorite}
-            isFavorite={true}
           />
         ))}
       </SimpleGrid>

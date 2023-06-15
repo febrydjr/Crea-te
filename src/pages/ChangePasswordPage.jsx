@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -13,8 +14,26 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+function withAuth(Component) {
+  return function WrappedComponent(props) {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const navigate = useNavigate();
 
-function ChangePasswordPage({ isAuthenticated }) {
+    useEffect(() => {
+      if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }, [isAuthenticated, navigate]);
+
+    if (!isAuthenticated) {
+      return null; // or any other placeholder while checking authentication
+    }
+
+    return <Component {...props} />;
+  };
+}
+
+function ChangePasswordPage() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -60,10 +79,6 @@ function ChangePasswordPage({ isAuthenticated }) {
       isClosable: true,
     });
   };
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
 
   if (!isPasswordChanged) {
     return (
@@ -117,7 +132,6 @@ function ChangePasswordPage({ isAuthenticated }) {
             </InputGroup>
           </FormControl>
           <FormControl id="confirmNewPassword" mb={4}>
-            Confirm New Password
             <FormLabel>Confirm New Password</FormLabel>
             <InputGroup size="md">
               <Input

@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Spacer, Image } from "@chakra-ui/react";
+import { Box, Flex, Link, Spacer, Image, Avatar } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 
 function Navbar() {
@@ -41,7 +41,7 @@ function Navbar() {
           </Link>
           <Link
             as={RouterLink}
-            to="/my-blogs"
+            to="/myblogs"
             mr={4}
             _hover={{ textDecoration: "none" }}
           >
@@ -62,6 +62,7 @@ function Navbar() {
           >
             Register
           </Link>
+          <Avatar name="User" src="path/to/profile-picture" size="sm" ml={4} />
         </Flex>
       </Flex>
     </Box>
