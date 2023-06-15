@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -13,7 +13,8 @@ import {
 } from "@chakra-ui/react";
 import articlesData from "../data/articles";
 
-function CreateArticlePage({ isAuthenticated }) {
+function CreateArticlePage() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [date, setDate] = useState("");
@@ -92,22 +93,15 @@ function CreateArticlePage({ isAuthenticated }) {
       duration: 2000,
       isClosable: true,
     });
+    navigate("/"); // Navigate to home page after creating the article
   };
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
-
-  if (isCreated) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <Box px={6} py={4}>
       <Heading as="h1" size="xl" mb={4}>
         Create Article
       </Heading>
-      <Box as="form" onSubmit={handleCreateSubmit}>
+      <form onSubmit={handleCreateSubmit}>
         <FormControl id="title" mb={4}>
           <FormLabel>Title</FormLabel>
           <Input
@@ -159,7 +153,7 @@ function CreateArticlePage({ isAuthenticated }) {
         </FormControl>
         <FormControl id="videos" mb={4}>
           <FormLabel>Videos</FormLabel>
-          {videos?.map((video, index) => (
+          {videos.map((video, index) => (
             <Box key={index} mb={2}>
               <Input
                 type="url"
@@ -175,7 +169,7 @@ function CreateArticlePage({ isAuthenticated }) {
         </FormControl>
         <FormControl id="keywords" mb={4}>
           <FormLabel>Keywords</FormLabel>
-          {keywords?.map((keyword, index) => (
+          {keywords.map((keyword, index) => (
             <Box key={index} mb={2}>
               <Input
                 type="text"
@@ -192,7 +186,7 @@ function CreateArticlePage({ isAuthenticated }) {
         <Button type="submit" size="sm" variant="outline">
           Create Article
         </Button>
-      </Box>
+      </form>
     </Box>
   );
 }

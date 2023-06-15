@@ -10,6 +10,7 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
+import { loginData, registerUser } from "../data/loginData";
 
 function RegisterPage({ isAuthenticated }) {
   const [username, setUsername] = useState("");
@@ -37,14 +38,45 @@ function RegisterPage({ isAuthenticated }) {
 
   const handleRegisterSubmit = (event) => {
     event.preventDefault();
-    // Implement your registration logic here
-    setIsRegistered(true);
-    toast({
-      title: "Registration successful!",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    // Check if the username or email is already registered
+    const isUsernameTaken = loginData.users.some(
+      (user) => user.username === username
+    );
+    const isEmailTaken = loginData.users.some((user) => user.email === email);
+
+    if (isUsernameTaken) {
+      toast({
+        title: "Username is already taken",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    } else if (isEmailTaken) {
+      toast({
+        title: "Email is already registered",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    } else {
+      // Add the registered user data to loginData
+      const newUser = {
+        username,
+        email,
+        password,
+        phone,
+      };
+      registerUser(newUser);
+
+      setIsRegistered(true);
+
+      toast({
+        title: "Registration successful!",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
 
   if (isAuthenticated) {
@@ -56,7 +88,17 @@ function RegisterPage({ isAuthenticated }) {
   }
 
   return (
-    <Box px={6} py={4}>
+    <Box
+      mt={10}
+      mb={10}
+      px={6}
+      py={4}
+      maxW="sm"
+      mx="auto"
+      borderWidth={1}
+      borderRadius="lg"
+      boxShadow="lg"
+    >
       <Heading as="h1" size="xl" mb={4}>
         Register
       </Heading>
@@ -102,7 +144,7 @@ function RegisterPage({ isAuthenticated }) {
             required
           />
         </FormControl>
-        <Button type="submit" size="sm" variant="outline">
+        <Button type="submit" size="sm" variant="outline" w="full">
           Register
         </Button>
       </Box>

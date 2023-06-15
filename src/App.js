@@ -63,6 +63,7 @@ function App() {
           element={<ArticlePage articles={articles} />}
         />
         <Route path="/create-article" element={<CreateArticlePage />} />
+
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify" element={<VerifyPage />} />
         <Route path="/login" element={<LoginPage />} />

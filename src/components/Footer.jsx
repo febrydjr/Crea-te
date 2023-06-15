@@ -29,7 +29,7 @@ function Footer() {
             <Flex align="center" mt={2}>
               <FiFacebook size={20} />
               <Link href="#" ml={2}>
-                Facebook.
+                Facebook
               </Link>
             </Flex>
             <Flex align="center" mt={2}>
