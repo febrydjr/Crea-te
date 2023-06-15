@@ -51,7 +51,7 @@ function VerifyPage() {
   };
 
   return (
-    <Box px={6} py={4}>
+    <Box marginBottom={"425px"} px={6} py={4}>
       <Heading as="h1" size="xl" mb={4}>
         Verify Account
       </Heading>

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Box,
   Avatar,
@@ -12,13 +13,34 @@ import ChangePasswordPage from "./ChangePasswordPage";
 import ResetPasswordPage from "./ResetPasswordPage";
 import VerifyPage from "./VerifyPage";
 import Dropzone from "react-dropzone";
+import ProfilePage from "./ProfilePage";
 
+function withAuth(Component) {
+  return function WrappedComponent(props) {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }, [isAuthenticated, navigate]);
+
+    if (!isAuthenticated) {
+      return null; // or any other placeholder while checking authentication
+    }
+
+    return <Component {...props} />;
+  };
+}
 const TestProfile = () => {
-  const [activePage, setActivePage] = useState("changepassword");
+  const [activePage, setActivePage] = useState("updateprofile");
   const [avatar, setAvatar] = useState("");
 
   const renderPage = () => {
     switch (activePage) {
+      case "updateprofile":
+        return <ProfilePage />;
       case "changepassword":
         return <ChangePasswordPage />;
       case "resetpassword":
@@ -53,6 +75,7 @@ const TestProfile = () => {
               >
                 <input {...getInputProps()} />
                 <Avatar
+                  ml={"35%"}
                   size="xl"
                   src={avatar || "/path-to-default-avatar.png"}
                 />
@@ -61,20 +84,30 @@ const TestProfile = () => {
           </Dropzone>
           <Divider />
           <Link
+            ml={1}
+            onClick={() => setActivePage("updateprofile")}
+            color={activePage === "updateprofile" ? "blue.300" : "inherit"}
+          >
+            Update Profile
+          </Link>
+          <Link
+            ml={1}
             onClick={() => setActivePage("changepassword")}
-            color={activePage === "changepassword" ? "blue.500" : "inherit"}
+            color={activePage === "changepassword" ? "blue.300" : "inherit"}
           >
             Change Password
           </Link>
           <Link
+            ml={1}
             onClick={() => setActivePage("resetpassword")}
-            color={activePage === "resetpassword" ? "blue.500" : "inherit"}
+            color={activePage === "resetpassword" ? "blue.300" : "inherit"}
           >
             Reset Password
           </Link>
           <Link
+            ml={1}
             onClick={() => setActivePage("verify")}
-            color={activePage === "verify" ? "blue.500" : "inherit"}
+            color={activePage === "verify" ? "blue.300" : "inherit"}
           >
             Verify
           </Link>
@@ -89,4 +122,4 @@ const TestProfile = () => {
   );
 };
 
-export default TestProfile;
+export default withAuth(TestProfile);

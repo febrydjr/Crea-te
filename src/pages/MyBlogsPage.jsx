@@ -130,10 +130,10 @@ function MyBlogPage() {
           >
             Create Article
           </Button>
-          <Button as={Link} to="/profile" size="sm" variant="outline" mr={2}>
+          <Button as={Link} to="/test" size="sm" variant="outline" mr={2}>
             Profile
           </Button>
-          <Button
+          {/* <Button
             size="sm"
             variant="outline"
             mr={2}
@@ -155,7 +155,7 @@ function MyBlogPage() {
             onClick={() => navigate("/verify")}
           >
             Verify
-          </Button>
+          </Button> */}
           <Avatar name="User" src="path/to/profile-picture" size="md" ml={2} />
         </Box>
       </Box>

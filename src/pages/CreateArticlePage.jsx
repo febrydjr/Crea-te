@@ -116,7 +116,7 @@ function CreateArticlePage() {
   };
 
   return (
-    <Box px={6} py={4}>
+    <Box w={"80%"} m={"auto"} mb={10} mt={10} px={6} py={4}>
       <Heading as="h1" size="xl" mb={4}>
         Create Article
       </Heading>
@@ -202,7 +202,13 @@ function CreateArticlePage() {
             Add Keyword
           </Button>
         </FormControl>
-        <Button type="submit" size="sm" variant="outline">
+        <Button
+          mt={4}
+          colorScheme="teal"
+          type="submit"
+          size="md"
+          variant="solid"
+        >
           Create Article
         </Button>
       </form>

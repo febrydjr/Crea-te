@@ -3,7 +3,7 @@ import { FiMail, FiTwitter, FiFacebook, FiInstagram } from "react-icons/fi";
 
 function Footer() {
   return (
-    <Box bg="gray.800" color="white" py={8} as="footer">
+    <Box m={"auto"} bg="gray.800" color="white" py={8} as="footer">
       <Container maxW="container.lg" h="100%">
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8} h="100%">
           <Box>

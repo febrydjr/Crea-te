@@ -54,8 +54,8 @@ function App() {
   return (
     <ChakraProvider>
       <Navbar />
-      <TestProfile />
-      {/* <Routes>
+      {/* <TestProfile /> */}
+      <Routes>
         <Route
           path="/"
           element={<LandingPage articles={articles} blogs={blogs} />}
@@ -73,8 +73,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/test" element={<TestProfile />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={<TestProfile />} />
+        <Route path="/updateprofile" element={<ProfilePage />} />
         <Route
           path="/profile-picture-upload"
           element={<ProfilePictureUpload />}
@@ -83,7 +83,7 @@ function App() {
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/create-blog" element={<CreateBlogPage />} />
         <Route path="/blogs/:id" element={<BlogDetailPage blogs={blogs} />} />
-      </Routes> */}
+      </Routes>
       {/* <BlogFilter blogs={blogs} setBlogs={setBlogs} />
       <BlogSort blogs={blogs} setBlogs={setBlogs} /> */}
       <Footer />

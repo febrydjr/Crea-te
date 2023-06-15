@@ -62,7 +62,14 @@ function Navbar() {
           >
             Register
           </Link>
-          <Avatar name="User" src="path/to/profile-picture" size="sm" ml={4} />
+          <Link as={RouterLink} to="/profile">
+            <Avatar
+              name="User"
+              src="path/to/profile-picture"
+              size="sm"
+              ml={4}
+            />
+          </Link>
         </Flex>
       </Flex>
     </Box>

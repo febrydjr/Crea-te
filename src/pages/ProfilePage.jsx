@@ -52,7 +52,7 @@ function ProfilePage() {
   }
 
   return (
-    <Box px={6} py={4}>
+    <Box marginBottom={"250px"} px={6} py={4}>
       <Heading as="h1" size="xl" mb={4}>
         Update Profile
       </Heading>
