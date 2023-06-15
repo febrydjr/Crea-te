@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -11,6 +11,24 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
+function withAuth(Component) {
+  return function WrappedComponent(props) {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }, [isAuthenticated, navigate]);
+
+    if (!isAuthenticated) {
+      return null; // or any other placeholder while checking authentication
+    }
+
+    return <Component {...props} />;
+  };
+}
 function CreateBlogPage({ isAuthenticated }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -36,10 +54,6 @@ function CreateBlogPage({ isAuthenticated }) {
       isClosable: true,
     });
   };
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
 
   if (isSuccess) {
     return (

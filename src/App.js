@@ -20,6 +20,7 @@ import BlogDetailPage from "./pages/BlogDetailPage";
 import BlogFilter from "./components/BlogFilter";
 import BlogSort from "./components/BlogSort";
 import Footer from "./components/Footer";
+import CheckLogin from "./pages/CheckLogin";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -64,6 +65,7 @@ function App() {
         />
         <Route path="/create-article" element={<CreateArticlePage />} />
 
+        <Route path="/checklogin" element={<CheckLogin />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify" element={<VerifyPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -76,21 +78,12 @@ function App() {
         />
         <Route path="/my-blogs" element={<MyBlogsPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route
-          path="/create-blog"
-          element={
-            loggedInUser && loggedInUser.email_verified ? (
-              <CreateBlogPage />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
+        <Route path="/create-blog" element={<CreateBlogPage />} />
         <Route path="/blogs/:id" element={<BlogDetailPage blogs={blogs} />} />
       </Routes>
-      <Footer />
       {/* <BlogFilter blogs={blogs} setBlogs={setBlogs} />
       <BlogSort blogs={blogs} setBlogs={setBlogs} /> */}
+      <Footer />
     </ChakraProvider>
   );
 }

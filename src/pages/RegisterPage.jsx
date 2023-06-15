@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import {
   Box,
@@ -10,16 +10,24 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
-import { loginData, registerUser } from "../data/loginData";
 
-function RegisterPage({ isAuthenticated }) {
+function RegisterPage({}) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const toast = useToast();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    setIsAuthenticated(!!isAuthenticated);
+  }, []);
+
+  if (isAuthenticated) {
+    return <Navigate to="/checklogin" />;
+  }
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -38,54 +46,15 @@ function RegisterPage({ isAuthenticated }) {
 
   const handleRegisterSubmit = (event) => {
     event.preventDefault();
-    // Check if the username or email is already registered
-    const isUsernameTaken = loginData.users.some(
-      (user) => user.username === username
-    );
-    const isEmailTaken = loginData.users.some((user) => user.email === email);
-
-    if (isUsernameTaken) {
-      toast({
-        title: "Username is already taken",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
-    } else if (isEmailTaken) {
-      toast({
-        title: "Email is already registered",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
-    } else {
-      // Add the registered user data to loginData
-      const newUser = {
-        username,
-        email,
-        password,
-        phone,
-      };
-      registerUser(newUser);
-
-      setIsRegistered(true);
-
-      toast({
-        title: "Registration successful!",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
-    }
+    // Implement your registration logic here
+    setIsRegistered(true);
+    toast({
+      title: "Registration successful!",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   };
-
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
-
-  if (isRegistered) {
-    return <Navigate to="/login" />;
-  }
 
   return (
     <Box

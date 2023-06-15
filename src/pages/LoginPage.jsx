@@ -1,5 +1,7 @@
-import { useState } from "react";
+//IMPORT INI
+import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+
 import {
   Box,
   Heading,
@@ -24,7 +26,20 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const toast = useToast();
+  //TAMBAH INI -----------------------------
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  //PAKE USE EFFECT INI
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    setIsAuthenticated(!!isAuthenticated);
+  }, []);
+
+  if (isAuthenticated) {
+    return <Navigate to="/checklogin" />;
+  }
+
+  // ---------------------------------------------
   const handleEmailOrUsernameOrPhoneChange = (event) => {
     setEmailOrUsernameOrPhone(event.target.value);
   };
@@ -38,6 +53,7 @@ function LoginPage() {
   };
 
   const handleLoginSubmit = (event) => {
+    localStorage.setItem("isAuthenticated", true);
     event.preventDefault();
 
     // Check if the entered username/password matches the stored values
@@ -52,7 +68,7 @@ function LoginPage() {
         duration: 2000,
         isClosable: true,
       });
-      navigate("/create-article"); // Navigate to create article page
+      navigate(-1); // Navigate to create article page
     } else {
       toast({
         title: "Invalid username or password",

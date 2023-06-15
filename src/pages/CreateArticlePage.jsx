@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+
 import {
   Box,
   Heading,
@@ -12,6 +13,24 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import articlesData from "../data/articles";
+function withAuth(Component) {
+  return function WrappedComponent(props) {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }, [isAuthenticated, navigate]);
+
+    if (!isAuthenticated) {
+      return null; // or any other placeholder while checking authentication
+    }
+
+    return <Component {...props} />;
+  };
+}
 
 function CreateArticlePage() {
   const navigate = useNavigate();
@@ -191,4 +210,4 @@ function CreateArticlePage() {
   );
 }
 
-export default CreateArticlePage;
+export default withAuth(CreateArticlePage);

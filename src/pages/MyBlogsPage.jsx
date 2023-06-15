@@ -1,45 +1,87 @@
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import { Box, Heading, SimpleGrid, useToast } from "@chakra-ui/react";
+import { Navigate, useNavigate } from "react-router-dom";
+import {
+  Box,
+  Heading,
+  SimpleGrid,
+  useToast,
+  Avatar,
+  Button,
+  FormControl,
+  FormLabel,
+  InputGroup,
+  Input,
+  Select,
+} from "@chakra-ui/react";
 import ArticleCard from "./ArticleCard";
+import articlesData from "../data/articles";
 
-function MyBlogPage({ isAuthenticated, isVerified }) {
-  const [createdArticles, setCreatedArticles] = useState([]);
+function withAuth(Component) {
+  return function WrappedComponent(props) {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }, [isAuthenticated, navigate]);
+
+    if (!isAuthenticated) {
+      return null; // or any other placeholder while checking authentication
+    }
+
+    return <Component {...props} />;
+  };
+}
+
+function MyBlogPage() {
   const [favoriteArticles, setFavoriteArticles] = useState([]);
+  const [articles, setArticles] = useState([]);
+  const [filteredArticles, setFilteredArticles] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [authorFilter, setAuthorFilter] = useState("");
+  const [sortBy, setSortBy] = useState("createdAt");
+  const [searchQuery, setSearchQuery] = useState("");
   const toast = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Implement your fetch created articles logic here
-    setCreatedArticles([
-      {
-        id: 1,
-        title: "My First Created Article",
-        content: "This is the content of my first created article.",
-        author: "John Doe",
-        createdAt: "2022-01-01T00:00:00Z",
-        updatedAt: "2022-01-01T00:00:00Z",
-      },
-      {
-        id: 2,
-        title: "My Second Created Article",
-        content: "This is the content of my second created article.",
-        author: "John Doe",
-        createdAt: "2022-01-02T00:00:00Z",
-        updatedAt: "2022-01-02T00:00:00Z",
-      },
-    ]);
-    // Implement your fetch favorite articles logic here
-    setFavoriteArticles([
-      {
-        id: 3,
-        title: "My First Favorite Article",
-        content: "This is the content of my first favorite article.",
-        author: "Jane Smith",
-        createdAt: "2022-01-03T00:00:00Z",
-        updatedAt: "2022-01-03T00:00:00Z",
-      },
-    ]);
+    // Set the articles from the articlesData
+    setArticles(articlesData);
   }, []);
+
+  useEffect(() => {
+    // Filter articles based on category and author
+    let filtered = articles;
+
+    if (categoryFilter !== "all") {
+      filtered = filtered.filter(
+        (article) => article.category === categoryFilter
+      );
+    }
+
+    if (authorFilter) {
+      filtered = filtered.filter((article) =>
+        article.author.toLowerCase().includes(authorFilter.toLowerCase())
+      );
+    }
+
+    setFilteredArticles(filtered);
+  }, [articles, categoryFilter, authorFilter]);
+
+  useEffect(() => {
+    // Sort articles based on sortBy option
+    const sorted = [...filteredArticles];
+
+    if (sortBy === "createdAt") {
+      sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (sortBy === "updatedAt") {
+      sorted.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    }
+
+    setFilteredArticles(sorted);
+  }, [filteredArticles, sortBy]);
 
   const handleToggleFavorite = (articleId) => {
     // Implement your toggle favorite logic here
@@ -51,47 +93,141 @@ function MyBlogPage({ isAuthenticated, isVerified }) {
     });
   };
 
-  if (!isAuthenticated || !isVerified) {
-    return <Navigate to="/login" />;
-  }
+  const handleSearch = () => {
+    // Filter articles based on search query
+    const searched = articles.filter((article) => {
+      const titleMatch = article.title
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const authorMatch = article.author
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      return titleMatch || authorMatch;
+    });
+
+    setFilteredArticles(searched);
+  };
 
   return (
     <Box px={6} py={4}>
-      <Heading as="h1" size="xl" mb={4}>
-        My Blog
-      </Heading>
-      <Box>
-        <Heading as="h2" size="lg" mb={2}>
-          Created Articles
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={4}
+      >
+        <Heading as="h1" size="xl">
+          My Blog
         </Heading>
-        <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={4} mb={4}>
-          {createdArticles?.map((article) => (
-            <ArticleCard
-              key={article.id}
-              article={article}
-              onToggleFavorite={handleToggleFavorite}
-              isFavorite={false}
-            />
-          ))}
-        </SimpleGrid>
+        <Box display="flex" alignItems="center">
+          {/* Profile Picture */}
+
+          {/* Buttons */}
+          <Button
+            size="sm"
+            variant="outline"
+            mr={2}
+            onClick={() => navigate("/create-article")}
+          >
+            Create Article
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            mr={2}
+            onClick={() => navigate("/profile")}
+          >
+            Profile
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            mr={2}
+            onClick={() => navigate("/change-password")}
+          >
+            Change Password
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            mr={2}
+            onClick={() => navigate("/reset-password")}
+          >
+            Reset Password
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => navigate("/verify")}
+          >
+            Verify
+          </Button>
+          <Avatar name="User" src="path/to/profile-picture" size="md" ml={2} />
+        </Box>
       </Box>
-      <Box>
-        <Heading as="h2" size="lg" mb={2}>
-          Favorite Articles
-        </Heading>
-        <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={4}>
-          {favoriteArticles?.map((article) => (
-            <ArticleCard
-              key={article.id}
-              article={article}
-              onToggleFavorite={handleToggleFavorite}
-              isFavorite={true}
-            />
-          ))}
-        </SimpleGrid>
+
+      <Box mb={4}>
+        {/* Search */}
+        <InputGroup>
+          <Input
+            placeholder="Search by title or author"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Button size="sm" variant="outline" onClick={handleSearch}>
+            Search
+          </Button>
+        </InputGroup>
       </Box>
+
+      <Box mb={4}>
+        {/* Filters */}
+        <FormControl id="category-filter" mb={2}>
+          <FormLabel>Filter by Category</FormLabel>
+          <Select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="technology">Technology</option>
+            <option value="sports">Sports</option>
+            <option value="politics">Politics</option>
+            <option value="entertainment">Entertainment</option>
+          </Select>
+        </FormControl>
+
+        <FormControl id="author-filter">
+          <FormLabel>Filter by Author</FormLabel>
+          <Input
+            placeholder="Enter author name"
+            value={authorFilter}
+            onChange={(e) => setAuthorFilter(e.target.value)}
+          />
+        </FormControl>
+      </Box>
+
+      <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={4} mb={4}>
+        {filteredArticles?.map((article) => (
+          <ArticleCard
+            key={article.id}
+            article={article}
+            onToggleFavorite={handleToggleFavorite}
+            isFavorite={false}
+          />
+        ))}
+      </SimpleGrid>
+      <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={4}>
+        {favoriteArticles?.map((article) => (
+          <ArticleCard
+            key={article.id}
+            article={article}
+            onToggleFavorite={handleToggleFavorite}
+            isFavorite={true}
+          />
+        ))}
+      </SimpleGrid>
     </Box>
   );
 }
 
-export default MyBlogPage;
+export default withAuth(MyBlogPage);

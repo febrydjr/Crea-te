@@ -4,10 +4,12 @@ import CategorySection from "../components/CategorySection";
 import Footer from "../components/Footer";
 import articlesData from "../data/articles";
 import FavoritesPage from "./FavoritesPage";
+import ArticlePage from "./ArticlePage";
 
 function LandingPage() {
   return (
     <Box>
+      {/* <ArticlePage /> */}
       <FavoritesPage />
       {/* <BannerCarousel articles={articlesData} /> */}
 

@@ -1,6 +1,7 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+
 import {
   Box,
   Heading,
@@ -17,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import articlesData from "../data/articles";
 
-function ArticlePage({ isAuthenticated }) {
+function ArticlePage() {
   const { articleId } = useParams();
   const [sortBy, setSortBy] = useState("newest");
   const [filterBy, setFilterBy] = useState("all");
@@ -26,10 +27,17 @@ function ArticlePage({ isAuthenticated }) {
 
   const article = articlesData.find((article) => article.id === articleId);
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  //PAKE USE EFFECT INI
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    setIsAuthenticated(!!isAuthenticated);
+  }, []);
+
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
   const handleSortChange = (event) => {
     setSortBy(event.target.value);
   };

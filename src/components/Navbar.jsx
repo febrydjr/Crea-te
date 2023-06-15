@@ -41,6 +41,14 @@ function Navbar() {
           </Link>
           <Link
             as={RouterLink}
+            to="/my-blogs"
+            mr={4}
+            _hover={{ textDecoration: "none" }}
+          >
+            My Blog
+          </Link>
+          <Link
+            as={RouterLink}
             to="/login"
             mr={4}
             _hover={{ textDecoration: "none" }}

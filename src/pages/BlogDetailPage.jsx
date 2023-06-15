@@ -1,13 +1,34 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Box, Heading, Text, Button, useToast } from "@chakra-ui/react";
+
+function withAuth(Component) {
+  return function WrappedComponent(props) {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }, [isAuthenticated, navigate]);
+
+    if (!isAuthenticated) {
+      return null; // or any other placeholder while checking authentication
+    }
+
+    return <Component {...props} />;
+  };
+}
 
 function BlogDetailPage({ match }) {
   const [article, setArticle] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const toast = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Implement your fetch article logic here
+    // Fetch the article and set the initial state
     const articleId = parseInt(match.params.id);
     setArticle({
       id: articleId,
@@ -17,12 +38,12 @@ function BlogDetailPage({ match }) {
       createdAt: "2022-01-01T00:00:00Z",
       updatedAt: "2022-01-01T00:00:00Z",
     });
-    // Implement your fetch favorite status logic here
+
+    // Fetch the favorite status
     setIsFavorite(false);
   }, [match.params.id]);
 
   const handleToggleFavorite = () => {
-    // Implement your toggle favorite logic here
     setIsFavorite(!isFavorite);
     toast({
       title: `Article ${article.id} ${
@@ -61,4 +82,4 @@ function BlogDetailPage({ match }) {
   );
 }
 
-export default BlogDetailPage;
+export default withAuth(BlogDetailPage);
