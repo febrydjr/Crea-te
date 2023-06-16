@@ -17,6 +17,8 @@ import {
 import ArticleCard from "./ArticleCard";
 import articlesData from "../data/articles";
 import FavoritesPage from "./FavoritesPage";
+import BlogFilter from "../components/BlogFilter";
+import BlogSort from "../components/BlogSort";
 
 function withAuth(Component) {
   return function WrappedComponent(props) {
@@ -78,7 +80,7 @@ function MyBlogPage() {
     if (sortBy === "createdAt") {
       sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     } else if (sortBy === "updatedAt") {
-      sorted.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+      sorted.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
     }
 
     setFilteredArticles(sorted);
@@ -111,6 +113,7 @@ function MyBlogPage() {
 
   return (
     <Box px={6} py={4}>
+      <BlogFilter />
       <Box
         display="flex"
         justifyContent="space-between"
@@ -163,12 +166,18 @@ function MyBlogPage() {
       <Box mb={4}>
         <InputGroup>
           <Input
-            placeholder="Search by title or author"
+            placeholder="Search by title, author, or keywords"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
-          <Button ml={2} size="md" variant="outline" onClick={handleSearch}>
+          <Button
+            command="Enter"
+            ml={2}
+            size="md"
+            variant="outline"
+            onClick={handleSearch}
+          >
             Search
           </Button>
         </InputGroup>

@@ -3,6 +3,7 @@ import BannerCarousel from "../components/BannerCarousel";
 import CategorySection from "../components/CategorySection";
 import Footer from "../components/Footer";
 import articlesData from "../data/articles";
+import slicedArticlesData from "../data/articles";
 import FavoritesPage from "./FavoritesPage";
 import ArticlePage from "./ArticlePage";
 
@@ -10,8 +11,8 @@ function LandingPage() {
   return (
     <Box>
       {/* <ArticlePage /> */}
-      <FavoritesPage />
-      {/* <BannerCarousel articles={articlesData} /> */}
+      {/* <FavoritesPage /> */}
+      <BannerCarousel articles={articlesData} />
 
       <Container maxW="100%" py={10}>
         <Heading
@@ -21,8 +22,9 @@ function LandingPage() {
           as="h2"
           size="xl"
           mb={6}
+          border={"2px solid #1A202C"}
         >
-          Populer
+          Artikel Populer
         </Heading>
 
         <SimpleGrid columns={{ base: 1, md: 2, lg: 5 }} spacing={5}>
@@ -47,7 +49,7 @@ function LandingPage() {
             category="Sports"
           />
           <CategorySection
-            title="Sehat"
+            title="Kesehatan"
             articles={articlesData}
             category="Health"
           />

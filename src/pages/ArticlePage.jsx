@@ -1,8 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Box, Image, Text, Button, Flex, VStack } from "@chakra-ui/react";
 import articlesData from "../data/articles";
 
+function withAuth(Component) {
+  return function WrappedComponent(props) {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }, [isAuthenticated, navigate]);
+
+    if (!isAuthenticated) {
+      return null; // or any other placeholder while checking authentication
+    }
+
+    return <Component {...props} />;
+  };
+}
+
 const ArticlePage = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 1;
   const totalArticles = articlesData.length;
@@ -59,4 +81,5 @@ const ArticlePage = () => {
   );
 };
 
-export default ArticlePage;
+export default withAuth(ArticlePage);
+// export default ArticlePage;
