@@ -16,6 +16,7 @@ function LandingPage() {
 
       <Container maxW="100%" py={10}>
         <Heading
+          fontFamily={"monospace"}
           borderRadius={"6px"}
           padding={3}
           background={"#DDE6ED"}

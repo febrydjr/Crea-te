@@ -1,22 +1,40 @@
 import { Box, Container, Flex, Link, SimpleGrid, Text } from "@chakra-ui/react";
-import { FiMail, FiTwitter, FiFacebook, FiInstagram } from "react-icons/fi";
+import {
+  FiMail,
+  FiTwitter,
+  FiFacebook,
+  FiInstagram,
+  FiGithub,
+  FiGitBranch,
+  FiGitCommit,
+  FiGitPullRequest,
+  FiGitlab,
+  FiLinkedin,
+} from "react-icons/fi";
 
 function Footer() {
   return (
-    <Box m={"auto"} bg="gray.800" color="white" py={8} as="footer">
+    <Box
+      fontFamily={"monospace"}
+      m={"auto"}
+      bg="gray.800"
+      color="white"
+      py={8}
+      as="footer"
+    >
       <Container maxW="container.lg" h="100%">
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8} h="100%">
           <Box>
-            <Text fontSize="lg" fontWeight="bold" mb={4}>
+            <Text fontSize={"lg"} fontWeight="bold" mb={4}>
               Newsletter
             </Text>
-            <Text>
+            <Text fontSize={"sm"}>
               Sign up for our newsletter to receive updates and news about our
               latest articles.
             </Text>
             {/* Add your newsletter subscription form here */}
           </Box>
-          <Box>
+          <Box fontSize="sm">
             <Text fontSize="lg" fontWeight="bold" mb={4}>
               Social Media
             </Text>
@@ -25,31 +43,49 @@ function Footer() {
               <Link href="#" ml={2}>
                 Twitter
               </Link>
+              <Flex ml={10} align="center">
+                <FiMail size={20} />
+                <Link href="#" ml={2}>
+                  E-mail
+                </Link>
+              </Flex>
             </Flex>
             <Flex align="center" mt={2}>
               <FiFacebook size={20} />
               <Link href="#" ml={2}>
                 Facebook
               </Link>
+              <Flex ml={8} align="center">
+                <FiGithub size={20} />
+                <Link href="#" ml={2}>
+                  GitHub
+                </Link>
+              </Flex>
             </Flex>
             <Flex align="center" mt={2}>
               <FiInstagram size={20} />
               <Link href="#" ml={2}>
                 Instagram
               </Link>
+              <Flex ml={6} align="center">
+                <FiLinkedin size={20} />
+                <Link href="#" ml={2}>
+                  LinkedIn
+                </Link>
+              </Flex>
             </Flex>
-            <Flex align="center" mt={2}>
+            {/* <Flex align="center" mt={2}>
               <FiMail size={20} />
               <Link href="#" ml={2}>
                 E-mail
               </Link>
-            </Flex>
+            </Flex> */}
           </Box>
           <Box>
             <Text fontSize="lg" fontWeight="bold" mb={4}>
               About Us
             </Text>
-            <Text>
+            <Text fontSize="sm">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget
               ullamcorper mauris, eu vulputate ligula.
             </Text>
@@ -58,8 +94,8 @@ function Footer() {
             <Text fontSize="lg" fontWeight="bold" mb={4}>
               Contact Us
             </Text>
-            <Text>Email: info@example.com</Text>
-            <Text>Phone: +1 123 456 7890</Text>
+            <Text fontSize={"sm"}>Email: info@example.com</Text>
+            <Text fontSize={"sm"}>Phone: +1 123 456 7890</Text>
           </Box>
         </SimpleGrid>
       </Container>

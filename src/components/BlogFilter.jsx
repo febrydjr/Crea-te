@@ -8,13 +8,16 @@ import {
   Stack,
   SimpleGrid,
   Text,
+  Button,
 } from "@chakra-ui/react";
 import articlesData from "../data/articles";
+// import { useNavigate } from "react-router-dom";
 
 const BlogFilter = () => {
   const [filter, setFilter] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [category, setCategory] = useState("");
+  // const navigate = useNavigate();
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
@@ -85,7 +88,7 @@ const BlogFilter = () => {
           <option value="title-za">Title Z-A</option>
         </Select>
       </FormControl>
-      <SimpleGrid columns={[2, null, 3]} spacing={4}>
+      <SimpleGrid mb={4} columns={[2, null, 3]} spacing={4}>
         {sortedArticles.map((article) => (
           <Box
             key={article.id}
@@ -107,6 +110,15 @@ const BlogFilter = () => {
           </Box>
         ))}
       </SimpleGrid>
+      {/* <Button
+        size="sm"
+        variant="solid"
+        colorScheme="teal"
+        mr={2}
+        onClick={() => navigate("/create-article")}
+      >
+        Create Article
+      </Button> */}
     </Box>
   );
 };

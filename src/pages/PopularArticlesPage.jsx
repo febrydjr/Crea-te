@@ -27,11 +27,11 @@ function PopularArticlesPage() {
 
   return (
     <Box px={6} py={4}>
-      <Heading as="h1" size="xl" mb={4}>
+      <Heading fontFamily={"monospace"} as="h1" size="xl" mb={4}>
         Popular Articles
       </Heading>
-      <Tabs variant="soft-rounded" colorScheme="purple">
-        <TabList mb={4}>
+      <Tabs variant="soft-rounded" colorScheme="blue">
+        <TabList fontFamily={"monospace"} mb={4}>
           <Tab>All Time</Tab>
           <Tab>Monthly</Tab>
           <Tab>Weekly</Tab>
@@ -41,16 +41,18 @@ function PopularArticlesPage() {
             <Stack spacing={4}>
               {popularArticles?.map((article) => (
                 <Box key={article.id} borderWidth="1px" p={4} rounded="md">
-                  <Text fontSize="sm" color="gray.600">
+                  <Text fontFamily={"monospace"} fontSize="sm" color="gray.600">
                     {article.category}
                   </Text>
-                  <Heading as="h2" size="md" my={2}>
+                  <Heading fontFamily={"monospace"} as="h2" size="md" my={2}>
                     {article.title}
                   </Heading>
-                  <Text fontSize="sm" color="gray.600">
+                  <Text fontFamily={"monospace"} fontSize="sm" color="gray.600">
                     By {article.author} on {article.date}
                   </Text>
-                  <Text mt={4}>{article.content.slice(0, 150)}...</Text>
+                  <Text fontFamily={"monospace"} fontSize={"sm"} mt={4}>
+                    {article.content.slice(0, 250)}...
+                  </Text>
                 </Box>
               ))}
             </Stack>

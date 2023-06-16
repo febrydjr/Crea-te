@@ -11,7 +11,7 @@ function CategorySection({ title, articles, category }) {
 
   return (
     <Box>
-      <Heading as="h3" size="lg" mb={4}>
+      <Heading fontFamily={"monospace"} as="h3" size="lg" mb={4}>
         {title}
       </Heading>
       {categoryArticles.map((article) => (
@@ -26,18 +26,21 @@ function CategorySection({ title, articles, category }) {
         >
           <Image src={article.thumbnail} alt={article.title} mb={4} />
 
-          <Heading as="h4" size="md" mb={2}>
+          <Heading fontFamily={"monospace"} as="h4" size="md" mb={2}>
             {article.title}
           </Heading>
-          <Text color="gray.600" mb={2}>
+          <Text fontFamily={"monospace"} color="gray.600" mb={2}>
             Author: {article.author} <br />
             {article.date}
           </Text>
-          <Text></Text>
-          <Text>{article.content.slice(0, 200)}</Text>
+          {/* <Text></Text> */}
+          <Text fontFamily={"monospace"} fontSize={"md"}>
+            {article.content.slice(0, 200)}
+          </Text>
           <Link style={{ display: "flex", justifyContent: "flex-end" }}>
             <Link to={`/articles/${article.id}`}>
               <Button
+                fontFamily={"monospace"}
                 mt={4}
                 size={"sm"}
                 colorScheme="facebook"

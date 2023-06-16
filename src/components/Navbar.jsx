@@ -21,20 +21,27 @@ function Navbar() {
   };
 
   return (
-    <Box bg="gray.800" py={4} px={8}>
+    <Box
+      fontFamily={"monospace"}
+      fontSize={"large"}
+      bg="gray.800"
+      py={4}
+      px={8}
+    >
       <Flex align="center" justify="space-between" color="white">
         <Flex align="center">
           <Image
             src="https://seeklogo.com/images/S/spider-man-logo-FD57A89F7D-seeklogo.com.png"
             alt="Logo"
             boxSize={8}
-            mr={2}
+            mr={4}
           />
           <Link
             as={RouterLink}
             to="/"
             fontWeight="bold"
-            fontSize="xl"
+            fontSize="2xl"
+            mt={2}
             _hover={{ textDecoration: "none" }}
           >
             MAI BLOGGGGG

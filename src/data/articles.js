@@ -7,7 +7,7 @@ const articlesData = [
     author: "Febry Dharmawan Jr",
     date: "2023-4-20",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const articlesData = [
     date: "2023-3-20",
     videos: "https://www.youtube.com/embed/6Lzv5XKl6H8",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque semper commodo odio. Donec feugiat neque quis velit malesuada tristique. In pellentesque purus a pretium commodo. Nulla sit amet ultricies velit. Duis sed purus ac lacus aliquam auctor. Ut sagittis porta molestie. Fusce id lacinia libero, a malesuada libero. Praesent mattis leo eu ligula sagittis luctus. Suspendisse sed accumsan lacus. Suspendisse iaculis porttitor quam et pellentesque. Curabitur varius vestibulum nisi, vel faucibus nisi volutpat quis. Nunc tristique ex et libero venenatis, id gravida arcu scelerisque. Pellentesque sit amet volutpat justo. Nulla facilisi. Nunc et diam varius orci facilisis maximus non vel elit. Phasellus mollis dictum risus, sed vestibulum nisl.Ut at maximus nisi. Nulla pulvinar orci vel tellus varius lobortis. Praesent mollis eros vel dolor gravida aliquam. Cras tempus tellus a massa bibendum, sit amet imperdiet neque auctor. Etiam mattis elit ac dui gravida tempor. Curabitur nulla elit, aliquet et nisl sit amet, elementum porta tortor. Nam finibus dictum pellentesque. Proin enim lectus, lacinia eget felis id, gravida porta nunc. Donec vulputate felis vitae consequat ornare. Integer lacus ligula, sollicitudin at massa eu, rhoncus varius arcu. Sed facilisis, velit ut elementum tincidunt, metus nisl pharetra diam, vitae volutpat nibh erat vitae lectus. Phasellus laoreet justo non libero sagittis porttitor. Morbi vel tristique velit. Vivamus interdum leo risus, ut sollicitudin elit tempus in. Nunc sed ipsum fermentum, rhoncus mauris quis, feugiat purus.Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in sodales ante, non vehicula metus. Sed sit amet augue pharetra, interdum urna vitae, tristique ipsum. Donec blandit eros leo, a fringilla risus porttitor nec. Morbi sodales nisi a metus pharetra molestie. Ut lobortis consectetur justo. Donec nec finibus massa. Nullam cursus purus at vehicula varius.Vivamus sollicitudin sem non interdum cursus. Pellentesque id blandit nulla. Phasellus at enim sed risus imperdiet dictum. Morbi eget justo ante. Proin molestie felis sed aliquam condimentum. Nullam quis aliquam est. Mauris rhoncus turpis nisl, sed egestas ante mollis vitae.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
     keywords: "React, Purwadhika, Belajar, JavaScript",
   },
   {
@@ -51,6 +51,109 @@ const articlesData = [
     date: "2020-7-11",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+  },
+  {
+    id: 6,
+    thumbnail: "https://picsum.photos/1366/763",
+    category: "Entertainment",
+    title: "Film Terbaru Dari Hollywood Mendapat Sambutan Positif",
+    author: "John Doe",
+    date: "2023-2-10",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+  },
+  {
+    id: 7,
+    thumbnail: "https://picsum.photos/1366/762",
+    category: "Travel",
+    title: "Liburan Seru di Pantai Bali, Destinasi Favorit Wisatawan",
+    author: "Jane Smith",
+    date: "2023-8-5",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+  },
+  {
+    id: 8,
+    thumbnail: "https://picsum.photos/1366/761",
+    category: "Sports",
+    title: "Tim Sepak Bola Indonesia Menang Telak di Kejuaraan Asia",
+    author: "David Williams",
+    date: "2023-6-1",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+  },
+  {
+    id: 9,
+    thumbnail: "https://picsum.photos/1366/760",
+    category: "Technology",
+    title: "Inovasi Terbaru: Robot Pembersih Rumah Dengan Kecerdasan Buatan",
+    author: "Emily Johnson",
+    date: "2023-5-15",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+    keywords: "Robot, Kecerdasan Buatan, Inovasi, Rumah",
+  },
+  {
+    id: 10,
+    thumbnail: "https://picsum.photos/1366/759",
+    category: "Health",
+    title: "10 Makanan Sehat yang Harus Dikonsumsi Setiap Hari",
+    author: "Michael Brown",
+    date: "2023-7-25",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+    keywords: "Makanan Sehat, Gizi, Kesehatan",
+  },
+  {
+    id: 11,
+    thumbnail: "https://picsum.photos/1366/758",
+    category: "Business",
+    title: "Startup Teknologi Baru Muncul Dengan Pendanaan Besar",
+    author: "Jessica Lee",
+    date: "2023-9-12",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+  },
+  {
+    id: 12,
+    thumbnail: "https://picsum.photos/1366/757",
+    category: "Politics",
+    title: "Calon Presiden Baru Bersiap Hadapi Pemilihan Umum",
+    author: "John Doe",
+    date: "2023-10-30",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+  },
+  {
+    id: 13,
+    thumbnail: "https://picsum.photos/1366/756",
+    category: "Entertainment",
+    title: "Musik Populer Bergema di Panggung Musik Terbesar Dunia",
+    author: "Emily Davis",
+    date: "2023-11-18",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+  },
+  {
+    id: 14,
+    thumbnail: "https://picsum.photos/1366/755",
+    category: "Sports",
+    title: "Tim Sepak Bola Nasional Melaju ke Final Piala Dunia",
+    author: "David Williams",
+    date: "2023-12-03",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+  },
+  {
+    id: 15,
+    thumbnail: "https://picsum.photos/1366/754",
+    category: "Technology",
+    title: "Perkembangan Teknologi Baru dalam Industri Otomotif",
+    author: "Jessica Lee",
+    date: "2024-01-15",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+    keywords: "Teknologi, Otomotif, Inovasi",
   },
 ];
 
