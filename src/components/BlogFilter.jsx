@@ -60,10 +60,15 @@ const BlogFilter = () => {
   });
 
   return (
-    <Box>
+    <Box fontFamily={"monospace"}>
       <FormControl mb={4}>
-        <FormLabel>Filter</FormLabel>
-        <Input type="text" value={filter} onChange={handleFilterChange} />
+        <FormLabel>Search</FormLabel>
+        <Input
+          placeholder="Search title, author, keyowrds, etc"
+          type="text"
+          value={filter}
+          onChange={handleFilterChange}
+        />
       </FormControl>
       <FormControl mb={4}>
         <FormLabel>Category</FormLabel>
@@ -91,12 +96,13 @@ const BlogFilter = () => {
       <SimpleGrid mb={4} columns={[2, null, 3]} spacing={4}>
         {sortedArticles.map((article) => (
           <Box
+            bgImage={`url(https://t3.ftcdn.net/jpg/05/52/00/52/360_F_552005213_SS0MTqdCVDYUKcp4o3uMhtJJu5SjTH1x.jpg)`}
             key={article.id}
             border={"1px solid lightgray"}
             borderWidth="1px"
             p={4}
           >
-            <Text mb={2} fontWeight="bold">
+            <Text fontSize={"lg"} mb={2} fontWeight="bold">
               {article.title}
             </Text>
             {/* <img src={article.thumbnail} alt={article.title} /> */}
@@ -106,7 +112,9 @@ const BlogFilter = () => {
             <Box>{article.category}</Box>
             <Box>{article.author}</Box>
             <Box>{article.date}</Box>
-            <Box mt={2}>{article.content.slice(0, 200)}</Box>
+            <Box fontSize={"md"} mt={2}>
+              {article.content.slice(0, 200)}
+            </Box>
           </Box>
         ))}
       </SimpleGrid>
