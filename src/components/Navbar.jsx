@@ -21,6 +21,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const isAuthenticated = localStorage.getItem("isAuthenticated"); // Fetch authentication status from local storage
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -38,6 +39,11 @@ function Navbar() {
     });
 
     navigate("/search-results", { state: { filteredArticles } });
+  };
+
+  const handleLogout = () => {
+    // Implement your logout logic here
+    localStorage.removeItem("isAuthenticated"); // Remove authentication status from local storage
   };
 
   return (
@@ -109,29 +115,40 @@ function Navbar() {
           >
             My Blog
           </Link>
-          <Link
-            as={RouterLink}
-            to="/login"
-            mr={4}
-            _hover={{ textDecoration: "none" }}
-          >
-            Log In
-          </Link>
-          <Link
-            as={RouterLink}
-            to="/register"
-            _hover={{ textDecoration: "none" }}
-          >
-            Register
-          </Link>
-          <Link as={RouterLink} to="/profile">
-            <Avatar
-              name="User"
-              src="path/to/profile-picture"
-              size="sm"
-              ml={4}
-            />
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Button
+                size={"sm"}
+                as={RouterLink}
+                to="/"
+                // mr={4}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+              <Link as={RouterLink} to="/profile">
+                <Avatar name="User" src="/profile" size="sm" ml={4} />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                as={RouterLink}
+                to="/login"
+                mr={4}
+                _hover={{ textDecoration: "none" }}
+              >
+                Log In
+              </Link>
+              <Link
+                as={RouterLink}
+                to="/register"
+                _hover={{ textDecoration: "none" }}
+              >
+                Register
+              </Link>
+            </>
+          )}
         </Flex>
         <IconButton
           aria-label="Toggle navigation"
