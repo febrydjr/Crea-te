@@ -28,7 +28,7 @@ function LandingPage() {
           Artikel Populer
         </Heading>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 5 }} spacing={5}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={5}>
           <CategorySection
             title="Teknologi"
             articles={articlesData}
@@ -53,6 +53,21 @@ function LandingPage() {
             title="Kesehatan"
             articles={articlesData}
             category="Health"
+          />
+          <CategorySection
+            title="Entertainment"
+            articles={articlesData}
+            category="Entertainment"
+          />
+          <CategorySection
+            title="Liburan"
+            articles={articlesData}
+            category="Travel"
+          />
+          <CategorySection
+            title="Agama"
+            articles={articlesData}
+            category="Religion"
           />
         </SimpleGrid>
       </Container>

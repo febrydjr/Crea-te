@@ -22,6 +22,7 @@ import BlogSort from "./components/BlogSort";
 import Footer from "./components/Footer";
 import CheckLogin from "./pages/CheckLogin";
 import TestProfile from "./pages/TestProfile";
+import SearchResults from "./pages/SearchResults";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -66,6 +67,7 @@ function App() {
           element={<ArticlePage articles={articles} />}
         />
         <Route path="/create-article" element={<CreateArticlePage />} />
+        <Route path="/search-results" element={<SearchResults />} />
 
         <Route path="/checklogin" element={<CheckLogin />} />
         <Route path="/register" element={<RegisterPage />} />

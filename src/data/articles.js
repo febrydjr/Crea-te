@@ -155,6 +155,17 @@ const articlesData = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
     keywords: "Teknologi, Otomotif, Inovasi",
   },
+  {
+    id: 16,
+    thumbnail: "https://picsum.photos/1366/753",
+    category: "Religion",
+    title: "Libur Hari Raya 1444H, Cuti Bersama 1 Minggu",
+    author: "Jessica Lee",
+    date: "2025-01-15",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+    keywords: "Agama, Islam, Hari Raya",
+  },
 ];
 
 export default articlesData;

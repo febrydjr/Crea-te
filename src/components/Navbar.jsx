@@ -7,17 +7,37 @@ import {
   Avatar,
   IconButton,
   Collapse,
+  Input,
+  Button,
 } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
+import { BiSolidSearch } from "react-icons/bi";
+import articlesData from "../data/articles";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleSearch = () => {
+    const filteredArticles = articlesData.filter((article) => {
+      const { title, author, category } = article;
+      const lowerCaseQuery = searchQuery.toLowerCase();
+      return (
+        title.toLowerCase().includes(lowerCaseQuery) ||
+        author.toLowerCase().includes(lowerCaseQuery) ||
+        category.toLowerCase().includes(lowerCaseQuery)
+      );
+    });
+
+    navigate("/search-results", { state: { filteredArticles } });
   };
 
   return (
@@ -41,11 +61,28 @@ function Navbar() {
             to="/"
             fontWeight="bold"
             fontSize="2xl"
-            mt={2}
+            // mt={2}
             _hover={{ textDecoration: "none" }}
           >
-            MAI BLOGGGGG
+            MAIBLOGGGG
           </Link>
+          <Input
+            // size={"lg"}
+            w={"300px"}
+            fontFamily={"monospace"}
+            placeholder="Search articles, keywords, etc..."
+            ml={6}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+          />
+          <Button ml={2} colorScheme="facebook" onClick={handleSearch}>
+            <AiOutlineSearch size={"20px"} />
+          </Button>
         </Flex>
         <Flex display={{ base: "none", md: "flex" }} align="center">
           <Link
@@ -105,54 +142,7 @@ function Navbar() {
       </Flex>
       <Collapse in={isOpen} animateOpacity>
         <Flex direction="column" mt={4} color="white">
-          <Link
-            as={RouterLink}
-            to="/articles/popular"
-            mb={2}
-            _hover={{ textDecoration: "none" }}
-          >
-            Popular Articles
-          </Link>
-          <Link
-            as={RouterLink}
-            to="/create-article"
-            mb={2}
-            _hover={{ textDecoration: "none" }}
-          >
-            Create Article
-          </Link>
-          <Link
-            as={RouterLink}
-            to="/myblogs"
-            mb={2}
-            _hover={{ textDecoration: "none" }}
-          >
-            My Blog
-          </Link>
-          <Link
-            as={RouterLink}
-            to="/login"
-            mb={2}
-            _hover={{ textDecoration: "none" }}
-          >
-            Log In
-          </Link>
-          <Link
-            as={RouterLink}
-            to="/register"
-            mb={2}
-            _hover={{ textDecoration: "none" }}
-          >
-            Register
-          </Link>
-          <Link as={RouterLink} to="/profile">
-            <Avatar
-              name="User"
-              src="path/to/profile-picture"
-              size="sm"
-              mb={2}
-            />
-          </Link>
+          {/* Existing code */}
         </Flex>
       </Collapse>
     </Box>
