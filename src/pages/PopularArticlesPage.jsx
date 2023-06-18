@@ -26,21 +26,42 @@ function PopularArticlesPage() {
   }, [sortedArticles]);
 
   return (
-    <Box px={6} py={4}>
-      <Heading fontFamily={"monospace"} as="h1" size="xl" mb={4}>
+    <Box
+      bgImg={
+        "https://i.pinimg.com/originals/3b/e1/cf/3be1cf74f40ee3cad370e4d0932544f2.gif"
+      }
+      px={6}
+      py={4}
+    >
+      <Heading
+        color={"white"}
+        fontFamily={"monospace"}
+        as="h1"
+        size="xl"
+        mb={4}
+      >
         Popular Articles
       </Heading>
       <Tabs variant="soft-rounded" colorScheme="blue">
         <TabList fontFamily={"monospace"} mb={4}>
-          <Tab>All Time</Tab>
-          <Tab>Monthly</Tab>
-          <Tab>Weekly</Tab>
+          <Tab color={"white"}>All Time</Tab>
+          <Tab color={"white"}>Monthly</Tab>
+          <Tab color={"white"}>Weekly</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <Stack spacing={4}>
               {popularArticles?.map((article) => (
-                <Box key={article.id} borderWidth="1px" p={4} rounded="md">
+                <Box
+                  // bgImage={
+                  //   "https://picsum.photos/1920/1080?random=" + article.id
+                  // }
+                  bgColor={"white"}
+                  key={article.id}
+                  borderWidth="1px"
+                  p={4}
+                  rounded="md"
+                >
                   <Text fontFamily={"monospace"} fontSize="sm" color="gray.600">
                     {article.category}
                   </Text>

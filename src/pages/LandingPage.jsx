@@ -9,7 +9,13 @@ import ArticlePage from "./ArticlePage";
 
 function LandingPage() {
   return (
-    <Box>
+    <Box
+      bgImage={
+        "https://cdna.artstation.com/p/assets/images/images/036/667/760/original/denis-quinn-untitled-1.gif?1618303464"
+      }
+      bgSize="cover"
+      // bgRepeat="no-repeat"
+    >
       {/* <ArticlePage /> */}
       {/* <FavoritesPage /> */}
       <BannerCarousel articles={articlesData} />

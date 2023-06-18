@@ -63,7 +63,7 @@ const TestProfile = () => {
   };
 
   return (
-    <Flex>
+    <Flex fontFamily={"monospace"}>
       {/* Sidebar */}
       <Box bg="gray.200" w="200px" p={4}>
         <VStack align="flex-start" spacing={4}>
@@ -84,6 +84,8 @@ const TestProfile = () => {
           </Dropzone>
           <Divider />
           <Link
+            fontSize={"md"}
+            fontWeight={"bold"}
             ml={1}
             onClick={() => setActivePage("updateprofile")}
             color={activePage === "updateprofile" ? "blue.300" : "inherit"}
@@ -91,6 +93,8 @@ const TestProfile = () => {
             Update Profile
           </Link>
           <Link
+            fontSize={"md"}
+            fontWeight={"bold"}
             ml={1}
             onClick={() => setActivePage("changepassword")}
             color={activePage === "changepassword" ? "blue.300" : "inherit"}
@@ -98,6 +102,8 @@ const TestProfile = () => {
             Change Password
           </Link>
           <Link
+            fontSize={"md"}
+            fontWeight={"bold"}
             ml={1}
             onClick={() => setActivePage("resetpassword")}
             color={activePage === "resetpassword" ? "blue.300" : "inherit"}
@@ -105,6 +111,8 @@ const TestProfile = () => {
             Reset Password
           </Link>
           <Link
+            fontSize={"md"}
+            fontWeight={"bold"}
             ml={1}
             onClick={() => setActivePage("verify")}
             color={activePage === "verify" ? "blue.300" : "inherit"}

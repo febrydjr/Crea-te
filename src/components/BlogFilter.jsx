@@ -64,7 +64,7 @@ const BlogFilter = () => {
       <FormControl mb={4}>
         <FormLabel>Search</FormLabel>
         <Input
-          placeholder="Search title, author, keyowrds, etc"
+          placeholder="Search title, author, keyowords, etc"
           type="text"
           value={filter}
           onChange={handleFilterChange}
@@ -96,7 +96,10 @@ const BlogFilter = () => {
       <SimpleGrid mb={4} columns={[2, null, 3]} spacing={4}>
         {sortedArticles.map((article) => (
           <Box
-            bgImage={`url(https://t3.ftcdn.net/jpg/05/52/00/52/360_F_552005213_SS0MTqdCVDYUKcp4o3uMhtJJu5SjTH1x.jpg)`}
+            // bgImage={"https://picsum.photos/700/300?random" + article.id}
+            bgImage={
+              "https://marketplace.canva.com/EAD2962NKnQ/2/0/1600w/canva-rainbow-gradient-pink-and-purple-virtual-background-_Tcjok-d9b4.jpg"
+            }
             key={article.id}
             border={"1px solid lightgray"}
             borderWidth="1px"

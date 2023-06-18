@@ -53,7 +53,7 @@ function ResetPasswordPage() {
 
   return (
     <Box marginBottom={"250px"} px={6} py={4}>
-      <Heading as="h1" size="xl" mb={4}>
+      <Heading fontFamily={"monospace"} as="h1" size="xl" mb={4}>
         Reset Password
       </Heading>
       <Box as="form" onSubmit={handleResetPasswordSubmit}>
@@ -84,7 +84,13 @@ function ResetPasswordPage() {
             required
           />
         </FormControl>
-        <Button type="submit" size="sm" variant="outline">
+        <Button
+          mt={2}
+          type="submit"
+          size="md"
+          variant="solid"
+          colorScheme="facebook"
+        >
           Reset Password
         </Button>
       </Box>

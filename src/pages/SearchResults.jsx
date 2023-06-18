@@ -6,11 +6,13 @@ function SearchResults() {
   const { filteredArticles } = location.state;
 
   return (
-    <Box mb={48} p={4}>
-      <Heading mb={4}>Search Results</Heading>
+    <Box fontFamily={"monospace"} mb={48} p={4}>
+      <Heading fontFamily={"monospace"} mb={4}>
+        Search Results
+      </Heading>
       {filteredArticles.length > 0 ? (
         // filteredArticles.map((article) => (
-        <SimpleGrid mb={4} columns={[2, null, 2]} spacing={4}>
+        <SimpleGrid columns={[2, null, 3]} spacing={4}>
           {filteredArticles.map((article) => (
             <Box
               key={article.id}
@@ -30,7 +32,9 @@ function SearchResults() {
               <Box>{article.category}</Box>
               <Box>{article.author}</Box>
               <Box>{article.date}</Box>
-              <Box mt={2}>{article.content.slice(0, 200)}</Box>
+              <Box fontSize={"sm"} mt={2}>
+                {article.content.slice(0, 200)}
+              </Box>
             </Box>
           ))}
         </SimpleGrid>

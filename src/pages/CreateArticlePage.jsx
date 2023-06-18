@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 import {
   Box,
@@ -10,9 +12,11 @@ import {
   Textarea,
   Select,
   Button,
+  Text,
   useToast,
 } from "@chakra-ui/react";
 import articlesData from "../data/articles";
+
 function withAuth(Component) {
   return function WrappedComponent(props) {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
@@ -37,12 +41,13 @@ function CreateArticlePage() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [date, setDate] = useState("");
-  const [image, setImage] = useState("");
+  const [thumbnail, setThumbnail] = useState(null);
   const [category, setCategory] = useState("technology");
   const [content, setContent] = useState("");
   const [videos, setVideos] = useState([]);
   const [keywords, setKeywords] = useState([]);
   const [isCreated, setIsCreated] = useState(false);
+  const [selectedFileName, setSelectedFileName] = useState("");
   const toast = useToast();
 
   const handleTitleChange = (event) => {
@@ -57,21 +62,30 @@ function CreateArticlePage() {
     setDate(event.target.value);
   };
 
-  const handleImageChange = (event) => {
-    setImage(event.target.value);
+  const handleThumbnailChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFileName(file.name);
+    // Rest of the logic for handling the file
   };
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
 
-  const handleContentChange = (event) => {
-    setContent(event.target.value);
+  const handleContentChange = (value) => {
+    setContent(value);
   };
 
   const handleVideoAdd = (event) => {
     event.preventDefault();
     setVideos([...videos, ""]);
+  };
+
+  const handleVideoUpload = (event, index) => {
+    const file = event.target.files[0];
+    const newVideos = [...videos];
+    newVideos[index] = URL.createObjectURL(file);
+    setVideos(newVideos);
   };
 
   const handleVideoChange = (event, index) => {
@@ -98,7 +112,7 @@ function CreateArticlePage() {
       title,
       author,
       date,
-      image,
+      thumbnail: URL.createObjectURL(thumbnail),
       category,
       content,
       videos: videos.filter((video) => video.trim() !== ""),
@@ -116,13 +130,21 @@ function CreateArticlePage() {
   };
 
   return (
-    <Box w={"80%"} m={"auto"} mb={10} mt={10} px={6} py={4}>
-      <Heading as="h1" size="xl" mb={4}>
+    <Box
+      fontFamily={"monospace"}
+      w={"80%"}
+      m={"auto"}
+      mb={10}
+      mt={10}
+      px={6}
+      py={4}
+    >
+      <Heading fontFamily={"monospace"} as="h1" size="xl" mb={4}>
         Create Article
       </Heading>
       <form onSubmit={handleCreateSubmit}>
         <FormControl id="title" mb={4}>
-          <FormLabel>Title</FormLabel>
+          <FormLabel fontWeight={"bold"}>Title</FormLabel>
           <Input
             type="text"
             value={title}
@@ -131,7 +153,7 @@ function CreateArticlePage() {
           />
         </FormControl>
         <FormControl id="author" mb={4}>
-          <FormLabel>Author</FormLabel>
+          <FormLabel fontWeight={"bold"}>Author</FormLabel>
           <Input
             type="text"
             value={author}
@@ -140,7 +162,7 @@ function CreateArticlePage() {
           />
         </FormControl>
         <FormControl id="date" mb={4}>
-          <FormLabel>Publication Date</FormLabel>
+          <FormLabel fontWeight={"bold"}>Publication Date</FormLabel>
           <Input
             type="date"
             value={date}
@@ -148,17 +170,34 @@ function CreateArticlePage() {
             required
           />
         </FormControl>
-        <FormControl id="image" mb={4}>
-          <FormLabel>Picture URL</FormLabel>
-          <Input
-            type="url"
-            value={image}
-            onChange={handleImageChange}
-            required
-          />
+        <FormControl id="thumbnail" mb={4}>
+          <FormLabel fontWeight="bold">Thumbnail</FormLabel>
+          <Button
+            as="label"
+            htmlFor="thumbnailInput"
+            size="sm"
+            variant="outline"
+            colorScheme="teal"
+            cursor="pointer"
+          >
+            Upload
+            <Input
+              id="thumbnailInput"
+              type="file"
+              accept=".jpg, .jpeg, .png"
+              onChange={handleThumbnailChange}
+              display="none"
+              required
+            />
+          </Button>
+          {selectedFileName && (
+            <Box mt={2}>
+              <Text>{selectedFileName}</Text>
+            </Box>
+          )}
         </FormControl>
         <FormControl id="category" mb={4}>
-          <FormLabel>Category</FormLabel>
+          <FormLabel fontWeight={"bold"}>Category</FormLabel>
           <Select value={category} onChange={handleCategoryChange} required>
             <option value="technology">Technology</option>
             <option value="sports">Sports</option>
@@ -167,19 +206,30 @@ function CreateArticlePage() {
           </Select>
         </FormControl>
         <FormControl id="content" mb={4}>
-          <FormLabel>News Content</FormLabel>
-          <Textarea value={content} onChange={handleContentChange} required />
+          <FormLabel fontWeight={"bold"}>News Content</FormLabel>
+          <div className="text-editor">
+            <ReactQuill
+              theme="snow"
+              value={content}
+              onChange={handleContentChange}
+              required
+            />
+          </div>
         </FormControl>
         <FormControl id="videos" mb={4}>
-          <FormLabel>Videos</FormLabel>
+          <FormLabel fontWeight={"bold"}>Videos</FormLabel>
           {videos.map((video, index) => (
             <Box key={index} mb={2}>
-              <Input
-                type="url"
-                value={video}
-                onChange={(event) => handleVideoChange(event, index)}
-                required
-              />
+              {video ? (
+                <video src={video} controls width={300} height={200} />
+              ) : (
+                <Input
+                  type="file"
+                  accept="video/*"
+                  onChange={(event) => handleVideoUpload(event, index)}
+                  required
+                />
+              )}
             </Box>
           ))}
           <Button size="sm" variant="outline" onClick={handleVideoAdd}>
@@ -187,7 +237,7 @@ function CreateArticlePage() {
           </Button>
         </FormControl>
         <FormControl id="keywords" mb={4}>
-          <FormLabel>Keywords</FormLabel>
+          <FormLabel fontWeight={"bold"}>Keywords</FormLabel>
           {keywords.map((keyword, index) => (
             <Box key={index} mb={2}>
               <Input

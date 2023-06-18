@@ -57,9 +57,18 @@ const ArticlePage = () => {
   };
 
   return (
-    <Box p={4}>
+    <Box
+      bgImage={"https://wallpaperaccess.com/full/8881426.gif"}
+      bgSize={"cover"}
+      p={4}
+    >
       <Box maxW="1100px" mx="auto" mb={6}>
-        <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
+        <Box
+          bgColor={"white"}
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+        >
           <Image src={currentArticle.thumbnail} alt={currentArticle.title} />
           <Box p={4}>
             <Text fontSize="xl" fontWeight="bold" mb={2}>
