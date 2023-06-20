@@ -14,6 +14,7 @@ import {
   Button,
   Text,
   useToast,
+  Image,
 } from "@chakra-ui/react";
 import articlesData from "../data/articles";
 
@@ -29,7 +30,7 @@ function withAuth(Component) {
     }, [isAuthenticated, navigate]);
 
     if (!isAuthenticated) {
-      return null; // or any other placeholder while checking authentication
+      return null;
     }
 
     return <Component {...props} />;
@@ -48,6 +49,7 @@ function CreateArticlePage() {
   const [keywords, setKeywords] = useState([]);
   const [isCreated, setIsCreated] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const toast = useToast();
 
   const handleTitleChange = (event) => {
@@ -64,8 +66,21 @@ function CreateArticlePage() {
 
   const handleThumbnailChange = (event) => {
     const file = event.target.files[0];
-    setSelectedFileName(file.name);
-    // Rest of the logic for handling the file
+    if (file && file.size <= 2 * 1024 * 1024) {
+      // Check if file size is within the limit (2MB)
+      setThumbnail(file);
+      setSelectedFileName(file.name);
+      setThumbnailPreview(URL.createObjectURL(file)); // Create a preview URL for the thumbnail
+    } else {
+      // Handle file size exceeded error
+      toast({
+        title: "File size limit exceeded.",
+        description: "Please upload a file up to 2MB in size.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleCategoryChange = (event) => {
@@ -83,9 +98,21 @@ function CreateArticlePage() {
 
   const handleVideoUpload = (event, index) => {
     const file = event.target.files[0];
-    const newVideos = [...videos];
-    newVideos[index] = URL.createObjectURL(file);
-    setVideos(newVideos);
+    if (file && file.size <= 100 * 1024 * 1024) {
+      // Check if file size is within the limit (100MB)
+      const newVideos = [...videos];
+      newVideos[index] = URL.createObjectURL(file);
+      setVideos(newVideos);
+    } else {
+      // Handle file size exceeded error
+      toast({
+        title: "File size limit exceeded.",
+        description: "Please upload a file up to 100MB in size.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleVideoChange = (event, index) => {
@@ -126,7 +153,7 @@ function CreateArticlePage() {
       duration: 2000,
       isClosable: true,
     });
-    navigate("/"); // Navigate to home page after creating the article
+    navigate("/");
   };
 
   return (
@@ -190,9 +217,9 @@ function CreateArticlePage() {
               required
             />
           </Button>
-          {selectedFileName && (
+          {thumbnailPreview && (
             <Box mt={2}>
-              <Text>{selectedFileName}</Text>
+              <Image src={thumbnailPreview} maxH="200px" />
             </Box>
           )}
         </FormControl>
