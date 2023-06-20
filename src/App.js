@@ -57,20 +57,18 @@ function App() {
   return (
     <ChakraProvider>
       <Navbar />
-      {/* <TestProfile /> */}
       <Routes>
         <Route
           path="/"
           element={<LandingPage articles={articles} blogs={blogs} />}
         />
-        <Route path="/articles/popular" element={<PopularArticlesPage />} />
         <Route
           path="/articles/:id"
           element={<ArticlePage articles={articles} />}
         />
+        <Route path="/articles/popular" element={<PopularArticlesPage />} />
         <Route path="/create-article" element={<CreateArticlePage />} />
         <Route path="/search-results" element={<SearchResults />} />
-
         <Route path="/checklogin" element={<CheckLogin />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify" element={<VerifyPage />} />

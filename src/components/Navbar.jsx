@@ -53,6 +53,7 @@ function Navbar() {
       bg="gray.800"
       py={4}
       px={8}
+      // mb={8}
     >
       <Flex align="center" justify="space-between" color="white">
         <Flex align="center">
