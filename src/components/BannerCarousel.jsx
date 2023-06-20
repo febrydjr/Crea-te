@@ -4,19 +4,24 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import articlesData from "../data/articles";
 
 function BannerCarousel() {
-  const limitedArticlesData = articlesData.slice(0, 10); // limit yang tampil hanya 10 artikel
+  // Sort the articlesData array in descending order based on the date
+  const sortedArticlesData = articlesData.sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
+
+  // Slice the sorted array to get the 10 most recent articles
+  const limitedArticlesData = sortedArticlesData.slice(0, 10);
+
   return (
     <Box mb={2}>
       <Carousel showThumbs={false} autoPlay infiniteLoop>
-        {limitedArticlesData?.map((articlesData) => (
-          <Box key={articlesData.id}>
+        {limitedArticlesData.map((articleData) => (
+          <Box key={articleData.id}>
             <Flex
-              backgroundImage={articlesData.thumbnail}
+              backgroundImage={articleData.thumbnail}
               backgroundSize="cover"
               backgroundPosition="center"
               height="500px"
-              // m={"auto"}
-
               align="flex-end"
               p={4}
               color="white"
@@ -28,13 +33,13 @@ function BannerCarousel() {
                 fontFamily={"monospace"}
                 fontWeight="bold"
               >
-                {articlesData.title} <br />
+                {articleData.title} <br />
                 <Text
                   textAlign={"left "}
                   fontFamily={"monospace"}
                   fontSize={"md"}
                 >
-                  Author: {articlesData.author}
+                  Author: {articleData.author}
                 </Text>
               </Text>
             </Flex>

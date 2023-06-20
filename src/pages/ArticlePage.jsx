@@ -32,20 +32,35 @@ const ArticlePage = () => {
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
   const currentArticle = articlesData[indexOfFirstArticle];
+  const [prevPage, setPrevPage] = useState(null);
+  const [nextPage, setNextPage] = useState(null);
 
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (pageNumber === prevPage && currentPage === 1) {
+      setCurrentPage(totalPages);
+    } else if (pageNumber === nextPage && currentPage === totalPages) {
+      setCurrentPage(1);
+    } else {
+      setCurrentPage(pageNumber);
+    }
   };
+
+  useEffect(() => {
+    setPrevPage(currentPage > 1 ? currentPage - 1 : null);
+    setNextPage(currentPage < totalPages ? currentPage + 1 : null);
+  }, [currentPage, totalPages]);
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
+    const startPage = Math.max(currentPage - 2, 1);
+    const endPage = Math.min(startPage + 4, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
         <Button
           key={i}
           onClick={() => handlePageChange(i)}
-          // variant={i === currentPage ? "teal" : "outline"}
-          colorScheme={i === currentPage ? "teal" : "gray"}
+          colorScheme={i === currentPage ? "facebook" : "gray"}
           mx={1}
           mb={4}
         >
@@ -53,8 +68,13 @@ const ArticlePage = () => {
         </Button>
       );
     }
+
     return pageNumbers;
   };
+
+  if (!currentArticle) {
+    return null; // or handle the case when the current article is not available
+  }
 
   return (
     <Box
@@ -84,11 +104,28 @@ const ArticlePage = () => {
         </Box>
       </Box>
       <Flex justifyContent="center" alignItems="center">
+        <Button
+          onClick={() => handlePageChange(prevPage)}
+          disabled={!prevPage}
+          colorScheme="facebook"
+          mx={1}
+          mb={4}
+        >
+          Prev
+        </Button>
         {renderPageNumbers()}
+        <Button
+          onClick={() => handlePageChange(nextPage)}
+          disabled={!nextPage}
+          colorScheme="facebook"
+          mx={1}
+          mb={4}
+        >
+          Next
+        </Button>
       </Flex>
     </Box>
   );
 };
 
 export default withAuth(ArticlePage);
-// export default ArticlePage;

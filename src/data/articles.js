@@ -25,7 +25,7 @@ const articlesData = [
     id: 3,
     thumbnail: "https://picsum.photos/1366/766",
     category: "Health",
-    title: "Covid-19 Hilang, Satu Pack Masker Seharga Permen",
+    title: "Gerindra Sebut Prabowo dan Jokowi Itu 'Bestie'",
     author: "Kokoh Jason",
     date: "2029-11-20",
     content:
