@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   FormControl,
@@ -11,9 +11,24 @@ import {
   Button,
 } from "@chakra-ui/react";
 import articlesData from "../data/articles";
+import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 
 const BlogFilter = () => {
+  const [articles, setArticles] = useState([]);
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/articles");
+      setArticles(response.data);
+    } catch (error) {
+      console.error("error fetching articles", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
   const [filter, setFilter] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [category, setCategory] = useState("");
@@ -31,7 +46,7 @@ const BlogFilter = () => {
     setCategory(event.target.value);
   };
 
-  const filteredArticles = articlesData
+  const filteredArticles = articles
     .filter(
       (article) =>
         article.title.toLowerCase().includes(filter.toLowerCase()) ||
@@ -74,13 +89,13 @@ const BlogFilter = () => {
         <FormLabel>Category</FormLabel>
         <Select value={category} onChange={handleCategoryChange}>
           <option value="">All</option>
-          {Array.from(
-            new Set(articlesData.map((article) => article.category))
-          ).map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
+          {Array.from(new Set(articles.map((article) => article.category))).map(
+            (category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            )
+          )}
         </Select>
       </FormControl>
       <FormControl>

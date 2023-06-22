@@ -9,7 +9,7 @@ import ArticlePage from "./pages/ArticlePage";
 import CreateArticlePage from "./pages/CreateArticlePage";
 import PopularArticlesPage from "./pages/PopularArticlesPage";
 import RegisterPage from "./pages/RegisterPage";
-import VerifyPage from "./pages/VerifyPage";
+import VerifyPage from "./pages/VerificationPage";
 import LoginPage from "./pages/LoginPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
@@ -25,6 +25,8 @@ import Footer from "./components/Footer";
 import CheckLogin from "./pages/CheckLogin";
 import TestProfile from "./pages/TestProfile";
 import SearchResults from "./pages/SearchResults";
+// import VerificationPage from "./pages/VerifyPage";
+import VerificationPage from "./pages/VerificationPage";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -71,7 +73,7 @@ function App() {
         <Route path="/search-results" element={<SearchResults />} />
         <Route path="/checklogin" element={<CheckLogin />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/verify" element={<VerifyPage />} />
+        {/* <Route path="/verification/:token" element={<VerifyPage />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
@@ -85,6 +87,8 @@ function App() {
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/create-blog" element={<CreateBlogPage />} />
         <Route path="/blogs/:id" element={<BlogDetailPage blogs={blogs} />} />
+        {/* <Route path="/verification/:token" element={<VerificationPage />} /> */}
+        <Route path="/verification/:token" component={VerificationPage} />
       </Routes>
       {/* <BlogFilter blogs={blogs} setBlogs={setBlogs} />
       <BlogSort blogs={blogs} setBlogs={setBlogs} /> */}

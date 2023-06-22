@@ -16,6 +16,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { BiSolidSearch } from "react-icons/bi";
 import articlesData from "../data/articles";
+import { TfiWrite } from "react-icons/tfi";
+import { EditIcon } from "@chakra-ui/icons";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -98,16 +100,9 @@ function Navbar() {
             mr={4}
             _hover={{ textDecoration: "none" }}
           >
-            Popular Articles
+            Popular
           </Link>
-          <Link
-            as={RouterLink}
-            to="/create-article"
-            mr={4}
-            _hover={{ textDecoration: "none" }}
-          >
-            Create Article
-          </Link>
+
           <Link
             as={RouterLink}
             to="/myblogs"
@@ -115,6 +110,18 @@ function Navbar() {
             _hover={{ textDecoration: "none" }}
           >
             My Blog
+          </Link>
+          <Link
+            as={RouterLink}
+            to="/create-article"
+            mr={4}
+            _hover={{ textDecoration: "none" }}
+            // rightIcon={<EditIcon />}
+          >
+            <Button variant={"outline"} size={"sm"} color={"white"}>
+              WRITE!
+              <TfiWrite size={20} />
+            </Button>
           </Link>
           {isAuthenticated ? (
             <>

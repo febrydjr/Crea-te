@@ -1,6 +1,7 @@
 //IMPORT INI
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import {
   Box,
@@ -18,26 +19,40 @@ import {
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { setAuthStatus } from "../utils/auth";
-import loginData from "../data/loginData";
+// import loginData from "../data/loginData";
 
 function LoginPage() {
+  const [login, setLogin] = useState([]);
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/login");
+      setLogin(response.data);
+    } catch (error) {
+      console.error("error fetching articles", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
   const navigate = useNavigate();
   const [emailOrUsernameOrPhone, setEmailOrUsernameOrPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const toast = useToast();
   //TAMBAH INI -----------------------------
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  //PAKE USE EFFECT INI
-  useEffect(() => {
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
-    setIsAuthenticated(!!isAuthenticated);
-  }, []);
+  // //PAKE USE EFFECT INI
+  // useEffect(() => {
+  //   const isAuthenticated = localStorage.getItem("isAuthenticated");
+  //   setIsAuthenticated(!!isAuthenticated);
+  // }, []);
 
-  if (isAuthenticated) {
-    return <Navigate to="/checklogin" />;
-  }
+  // if (isAuthenticated) {
+  //   return <Navigate to="/checklogin" />;
+  // }
 
   // ---------------------------------------------
   const handleEmailOrUsernameOrPhoneChange = (event) => {
@@ -53,14 +68,19 @@ function LoginPage() {
   };
 
   const handleLoginSubmit = (event) => {
-    localStorage.setItem("isAuthenticated", true);
     event.preventDefault();
 
-    // Check if the entered username/password matches the stored values
-    if (
-      emailOrUsernameOrPhone === loginData.username &&
-      password === loginData.password
-    ) {
+    // Find the matching login data based on the entered email/username/phone
+    const matchedLogin = login.find((loginData) => {
+      return (
+        emailOrUsernameOrPhone === loginData.username ||
+        emailOrUsernameOrPhone === loginData.email ||
+        emailOrUsernameOrPhone === loginData.phone
+      );
+    });
+
+    // Check if a matching login data was found and the password is correct
+    if (matchedLogin && password === matchedLogin.password) {
       setAuthStatus(true); // Set authentication status to true
       toast({
         title: "Login successful!",
@@ -68,12 +88,13 @@ function LoginPage() {
         duration: 2000,
         isClosable: true,
       });
+      localStorage.setItem("isAuthenticated", true);
       navigate(-1); // Navigate to create article page
     } else {
       toast({
         title: "Invalid username or password",
         status: "error",
-        duration: 2000,
+        duration: 3000,
         isClosable: true,
       });
     }

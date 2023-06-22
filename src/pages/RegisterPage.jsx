@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import React from "react";
 import {
   Box,
   Heading,
@@ -10,50 +9,64 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
 
-function RegisterPage({}) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [isRegistered, setIsRegistered] = useState(false);
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required("Username is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}$/,
+      "Password must be at least 6 characters long, contain at least 1 symbol and 1 uppercase letter"
+    ),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+  phone: Yup.string().required("Phone Number is required"),
+});
+
+const RegisterPage = () => {
   const toast = useToast();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
-    setIsAuthenticated(!!isAuthenticated);
-  }, []);
+  const handleRegisterSubmit = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://minpro-blog.purwadhikabootcamp.com/api/auth/",
+        values
+      );
 
-  if (isAuthenticated) {
-    return <Navigate to="/checklogin" />;
-  }
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+      if (response.status === 200) {
+        toast({
+          title: "Registration successful!",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        console.log(response.data.message);
+      } else {
+        toast({
+          title: "Registration failed",
+          description: "Unable to register. Please try again later.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error(error); // Log the error to the console for debugging purposes
+      console.log(error.response.data); // Log the error response data
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handlePhoneChange = (event) => {
-    setPhone(event.target.value);
-  };
-
-  const handleRegisterSubmit = (event) => {
-    event.preventDefault();
-    // Implement your registration logic here
-    setIsRegistered(true);
-    toast({
-      title: "Registration successful!",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+      toast({
+        title: "Registration failed",
+        description: "Unable to register. Please try again later.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -71,54 +84,95 @@ function RegisterPage({}) {
       <Heading as="h1" size="xl" mb={4}>
         Register
       </Heading>
-      <Box as="form" onSubmit={handleRegisterSubmit}>
-        <FormControl id="username" mb={4}>
-          <FormLabel>Username</FormLabel>
-          <Input
-            type="text"
-            value={username}
-            onChange={handleUsernameChange}
-            required
-          />
-        </FormControl>
-        <FormControl id="email" mb={4}>
-          <FormLabel>Email Address</FormLabel>
-          <Input
-            type="email"
-            value={email}
-            onChange={handleEmailChange}
-            required
-          />
-        </FormControl>
-        <FormControl id="password" mb={4}>
-          <FormLabel>Password</FormLabel>
-          <Input
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}"
-          />
-          <FormHelperText>
-            Password must be at least 6 characters long, contain at least 1
-            symbol and 1 uppercase letter.
-          </FormHelperText>
-        </FormControl>
-        <FormControl id="phone" mb={4}>
-          <FormLabel>Phone Number</FormLabel>
-          <Input
-            type="tel"
-            value={phone}
-            onChange={handlePhoneChange}
-            required
-          />
-        </FormControl>
-        <Button type="submit" size="sm" variant="outline" w="full">
-          Register
-        </Button>
-      </Box>
+      <Formik
+        initialValues={{
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+          phone: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleRegisterSubmit}
+      >
+        <Form>
+          <Field name="username">
+            {({ field }) => (
+              <FormControl id="username" mb={4}>
+                <FormLabel>Username</FormLabel>
+                <Input {...field} type="text" required />
+                <ErrorMessage
+                  name="username"
+                  component={FormHelperText}
+                  errorBorderColor="red.300"
+                />
+              </FormControl>
+            )}
+          </Field>
+
+          <Field name="email">
+            {({ field }) => (
+              <FormControl id="email" mb={4}>
+                <FormLabel>Email Address</FormLabel>
+                <Input {...field} type="email" required />
+                <ErrorMessage
+                  name="email"
+                  component={FormHelperText}
+                  errorBorderColor="red.300"
+                />
+              </FormControl>
+            )}
+          </Field>
+
+          <Field name="password">
+            {({ field }) => (
+              <FormControl id="password" mb={4}>
+                <FormLabel>Password</FormLabel>
+                <Input {...field} type="password" required />
+                <ErrorMessage
+                  name="password"
+                  component={FormHelperText}
+                  errorBorderColor="red.300"
+                />
+              </FormControl>
+            )}
+          </Field>
+
+          <Field name="confirmPassword">
+            {({ field }) => (
+              <FormControl id="confirmPassword" mb={4}>
+                <FormLabel>Confirm Password</FormLabel>
+                <Input {...field} type="password" required />
+                <ErrorMessage
+                  name="confirmPassword"
+                  component={FormHelperText}
+                  errorBorderColor="red.300"
+                />
+              </FormControl>
+            )}
+          </Field>
+
+          <Field name="phone">
+            {({ field }) => (
+              <FormControl id="phone" mb={4}>
+                <FormLabel>Phone Number</FormLabel>
+                <Input {...field} type="tel" required />
+                <ErrorMessage
+                  name="phone"
+                  component={FormHelperText}
+                  errorBorderColor="red.300"
+                />
+              </FormControl>
+            )}
+          </Field>
+
+          <Button type="submit" size="sm" variant="outline" w="full">
+            Register
+          </Button>
+        </Form>
+      </Formik>
     </Box>
   );
-}
+};
 
 export default RegisterPage;

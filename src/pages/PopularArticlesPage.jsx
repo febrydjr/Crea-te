@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -11,14 +11,27 @@ import {
   Text,
 } from "@chakra-ui/react";
 import articlesData from "../data/articles";
+import axios from "axios";
 
 function PopularArticlesPage() {
+  const [articles, setArticles] = useState([]);
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/articles");
+      setArticles(response.data);
+    } catch (error) {
+      console.error("error fetching articles", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
   const [popularArticles, setPopularArticles] = useState([]);
 
   // Sort articles by popularity and slice the top 5
-  const sortedArticles = articlesData
-    .sort((a, b) => b.views - a.views)
-    .slice(0, 5);
+  const sortedArticles = articles.sort((a, b) => b.views - a.views).slice(0, 5);
 
   // Update popular articles whenever the sorted articles change
   useState(() => {
@@ -51,7 +64,7 @@ function PopularArticlesPage() {
         <TabPanels>
           <TabPanel>
             <Stack spacing={4}>
-              {popularArticles?.map((article) => (
+              {sortedArticles.map((article) => (
                 <Box
                   // bgImage={
                   //   "https://picsum.photos/1920/1080?random=" + article.id

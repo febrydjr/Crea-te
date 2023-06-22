@@ -1,9 +1,24 @@
 import { Box, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useState, useEffect } from "react";
 import articlesData from "../data/articles";
+import axios from "axios";
+function CategorySection({ title, category }) {
+  const [articles, setArticles] = useState([]);
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/articles");
+      setArticles(response.data);
+    } catch (error) {
+      console.error("error fetching articles", error);
+    }
+  };
 
-function CategorySection({ title, articles, category }) {
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
   const categoryArticle = articles.find(
     (article) => article.category === category
   );

@@ -1,0 +1,115 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "views": 1,
+      "thumbnail": "https://picsum.photos/1366/768",
+      "category": "Sports",
+      "title": "Indonesia Juara Piala Dunia 2022, Cuti Bersama 3 Hari",
+      "author": "Febry Dharmawan Jr",
+      "date": "2023-4-20",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien."
+    },
+    {
+      "id": 2,
+      "views": 10,
+      "thumbnail": "https://picsum.photos/1366/767",
+      "category": "Politics",
+      "title": "React Itu Mudah Sekali, Semua Orang Pasti Bisa (Mungkin)",
+      "author": "Andre D Java",
+      "date": "2023-3-20",
+      "videos": "https://www.youtube.com/embed/6Lzv5XKl6H8",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+      "keywords": "React, Purwadhika, Belajar, JavaScript"
+    },
+    {
+      "id": 3,
+      "views": 100,
+      "thumbnail": "https://picsum.photos/1366/766",
+      "category": "Health",
+      "title": "Gerindra Sebut Prabowo dan Jokowi Itu 'Bestie'",
+      "author": "Kokoh Jason",
+      "date": "2029-11-20",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien."
+    },
+    {
+      "id": 4,
+      "views": 1000,
+      "thumbnail": "https://picsum.photos/1366/765",
+      "category": "Business",
+      "title": "Tingkat Inflasi Indonesia Tahun 2023 Sangat Tinggi",
+      "author": "Najwa Shihab",
+      "date": "2093-10-22",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien."
+    },
+    {
+      "id": 5,
+      "views": 22,
+      "thumbnail": "https://picsum.photos/1366/764",
+      "category": "Entertainment",
+      "title": "Film A Silent Voice Memenangkan Piala Oscar",
+      "author": "Rahmat Muhammad",
+      "date": "2022-12-10",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien."
+    },
+    {
+      "id": 6,
+      "views": 50,
+      "thumbnail": "https://picsum.photos/1366/763",
+      "category": "Religion",
+      "title": "Timnas Indonesia Menang 4-0 Lawan Malaysia",
+      "author": "Febry Dharmawan Jr",
+      "date": "2023-7-11",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien."
+    },
+    {
+      "id": 7,
+      "views": 200,
+      "thumbnail": "https://picsum.photos/1366/762",
+      "category": "Technology",
+      "title": "Facebook Mengakuisisi WhatsApp dengan Harga yang Fantastis",
+      "author": "Andre D Java",
+      "date": "2023-6-8",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien.",
+      "keywords": "Facebook, WhatsApp, Akuisisi, Teknologi"
+    },
+    {
+      "id": 8,
+      "views": 500,
+      "thumbnail": "https://picsum.photos/1366/761",
+      "category": "Travel",
+      "title": "Studi: Olahraga Rutin Bisa Meningkatkan Kualitas Tidur",
+      "author": "Kokoh Jason",
+      "date": "2035-2-14",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien."
+    },
+    {
+      "id": 9,
+      "views": 10000,
+      "thumbnail": "https://picsum.photos/1366/760",
+      "category": "Business",
+      "title": "Apple Rilis iPhone Terbaru dengan Teknologi Revolusioner",
+      "author": "Najwa Shihab",
+      "date": "2023-9-30",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien."
+    },
+    {
+      "id": 10,
+      "views": 250,
+      "thumbnail": "https://picsum.photos/1366/759",
+      "category": "Entertainment",
+      "title": "BTS Merilis Album Baru 'Butterfly Effect'",
+      "author": "Rahmat Muhammad",
+      "date": "2023-5-18",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod mauris vel felis bibendum, at pretium urna bibendum. Vivamus ut luctus nulla, id tincidunt nisl. Duis in ante vel elit viverra bibendum. Maecenas aliquet, velit id fringilla ultrices, dui sapien sollicitudin velit, vel pulvinar mi velit eu sapien."
+    }
+  ],
+  "login": [
+    {
+      "username": "admin",
+      "password": "Admin1@",
+      "email": "admin@aa.com",
+      "phonenumber": "081234567890"
+    }
+  ]
+}

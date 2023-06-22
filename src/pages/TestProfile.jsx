@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import ChangePasswordPage from "./ChangePasswordPage";
 import ResetPasswordPage from "./ResetPasswordPage";
-import VerifyPage from "./VerifyPage";
+import VerifyPage from "./VerificationPage";
 import Dropzone from "react-dropzone";
 import ProfilePage from "./ProfilePage";
 
@@ -110,7 +110,7 @@ const TestProfile = () => {
           >
             Reset Password
           </Link>
-          <Link
+          {/* <Link
             fontSize={"md"}
             fontWeight={"bold"}
             ml={1}
@@ -118,7 +118,7 @@ const TestProfile = () => {
             color={activePage === "verify" ? "blue.300" : "inherit"}
           >
             Verify
-          </Link>
+          </Link> */}
         </VStack>
       </Box>
 

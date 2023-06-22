@@ -2,10 +2,26 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import articlesData from "../data/articles";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function BannerCarousel() {
-  // Sort the articlesData array in descending order based on the date
-  const sortedArticlesData = articlesData.sort(
+  const [articles, setArticles] = useState([]);
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/articles");
+      setArticles(response.data);
+    } catch (error) {
+      console.error("error fetching articles", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
+  //Sort the articlesData array in descending order based on the date
+  const sortedArticlesData = articles.sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
