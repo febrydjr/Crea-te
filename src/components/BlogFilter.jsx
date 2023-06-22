@@ -18,7 +18,7 @@ const BlogFilter = () => {
   const [articles, setArticles] = useState([]);
   const fetchArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/articles");
+      const response = await axios.get("http://localhost:3010/articles");
       setArticles(response.data);
     } catch (error) {
       console.error("error fetching articles", error);

@@ -109,7 +109,8 @@
       "username": "admin",
       "password": "Admin1@",
       "email": "admin@aa.com",
-      "phonenumber": "081234567890"
+      "phonenumber": "081234567890",
+      "token": "ddfdfddsfjshfs77sfbsh"
     }
   ]
 }

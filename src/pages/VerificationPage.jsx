@@ -1,48 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Heading, Button, useToast } from "@chakra-ui/react";
+import { Box, Text, Heading, Button, useToast } from "@chakra-ui/react";
 import axios from "axios";
 
 function VerificationPage() {
   const [isVerified, setIsVerified] = useState(false);
   const toast = useToast();
-  const { token } = useParams();
+  const url = window.location.href.split("/");
+  const token = url[url.length - 1];
+  console.log(token);
+  // const { token } = useParams();
 
-  useEffect(() => {
-    const handleVerification = async () => {
-      try {
-        const headers = {
-          Authorization: `Bearer ${token}`,
-        };
-        const response = await axios.patch(
-          "https://minpro-blog.purwadhikabootcamp.com/api/auth/verify",
-          {},
-          {
-            headers,
-          }
-        );
-        if (response.status === 200) {
-          setIsVerified(true);
-          toast({
-            title: "Account verified!",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-          });
-        }
-      } catch (error) {
-        toast({
-          title: "Verification failed!",
-          description: error.response.data.message || "Something went wrong",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-        });
-      }
-    };
+  // useEffect(() => {
+  //   const handleVerification = async () => {
+  //     try {
+  //       const headers = {
+  //         Authorization: `Bearer ${token}`,
+  //       };
+  //       const response = await axios.patch(
+  //         "https://minpro-blog.purwadhikabootcamp.com/api/auth/verify",
+  //         {},
+  //         {
+  //           headers,
+  //         }
+  //       );
+  //       if (response.status === 200) {
+  //         setIsVerified(true);
+  //         toast({
+  //           title: "Account verified!",
+  //           status: "success",
+  //           duration: 2000,
+  //           isClosable: true,
+  //         });
+  //       }
+  //     } catch (error) {
+  //       toast({
+  //         title: "Verification failed!",
+  //         description: error.response.data.message || "Something went wrong",
+  //         status: "error",
+  //         duration: 2000,
+  //         isClosable: true,
+  //       });
+  //     }
+  //   };
 
-    handleVerification();
-  }, [toast, token]);
+  //   handleVerification();
+  // }, [toast, token]);
 
   const verify = async () => {
     try {
@@ -51,13 +54,28 @@ function VerificationPage() {
         {},
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZ3NhIiwiZW1haWwiOiJhbmdzYWJlbGFuZGExQGdtYWlsLmNvbSIsInBob25lIjoiODU5NjMxNjMxNDEiLCJwYXNzd29yZCI6IiQyYiQxMCRwa1hRT01XUlZpLkpLWW1rRjVPT2J1LkxvV1NYRDVtVGU5LkZHdmJ5aFJTN3pYYzNjWnZQSyIsImlkIjo0ODgsImlzVmVyaWZpZWQiOmZhbHNlLCJpYXQiOjE2ODc0MTcyNDIsImV4cCI6MTY4NzQyMDg0Mn0.0ieHp2b1hifp0jHZBNIx2VighnD9iEWajnN5Pd1_tHY",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       console.log(res);
+      if (res.status === 200) {
+        setIsVerified(true);
+        toast({
+          title: "Account Successfully verified!",
+          status: "success",
+          duration: 7000,
+          isClosable: true,
+        });
+      }
     } catch (err) {
+      toast({
+        title: "Verification failed!",
+        description: "Something went wrong",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
       console.log(err);
     }
   };
@@ -67,8 +85,8 @@ function VerificationPage() {
       mt={10}
       mb={10}
       px={6}
-      py={4}
-      maxW="sm"
+      py={6}
+      maxW="lg"
       mx="auto"
       borderWidth={1}
       borderRadius="lg"
@@ -81,7 +99,7 @@ function VerificationPage() {
         <p>Your account has been successfully verified.</p>
       ) : (
         <div>
-          <p>Click the button to verify!</p>
+          <Text mt={10}>Click the button to verify!</Text>
           <Button onClick={() => verify()} mt={4} colorScheme="blue">
             Verify Account
           </Button>

@@ -41,8 +41,9 @@ const RegisterPage = () => {
       if (response.status === 200) {
         toast({
           title: "Registration successful!",
+          description: response.data.message,
           status: "success",
-          duration: 2000,
+          duration: 7000,
           isClosable: true,
         });
         console.log(response.data.message);
@@ -51,21 +52,13 @@ const RegisterPage = () => {
           title: "Registration failed",
           description: "Unable to register. Please try again later.",
           status: "error",
-          duration: 2000,
+          duration: 5000,
           isClosable: true,
         });
       }
     } catch (error) {
       console.error(error); // Log the error to the console for debugging purposes
       console.log(error.response.data); // Log the error response data
-
-      toast({
-        title: "Registration failed",
-        description: "Unable to register. Please try again later.",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
     }
   };
 

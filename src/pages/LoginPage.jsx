@@ -1,8 +1,8 @@
-//IMPORT INI
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import axios from "axios";
-
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -15,89 +15,68 @@ import {
   Button,
   Text,
   useToast,
+  Checkbox,
 } from "@chakra-ui/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { setAuthStatus } from "../utils/auth";
-// import loginData from "../data/loginData";
 
 function LoginPage() {
-  const [login, setLogin] = useState([]);
-  const fetchArticles = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/login");
-      setLogin(response.data);
-    } catch (error) {
-      console.error("error fetching articles", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchArticles();
-  }, []);
-
   const navigate = useNavigate();
-  const [emailOrUsernameOrPhone, setEmailOrUsernameOrPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const toast = useToast();
-  //TAMBAH INI -----------------------------
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
-  // //PAKE USE EFFECT INI
-  // useEffect(() => {
-  //   const isAuthenticated = localStorage.getItem("isAuthenticated");
-  //   setIsAuthenticated(!!isAuthenticated);
-  // }, []);
+  const formik = useFormik({
+    initialValues: {
+      emailOrUsernameOrPhone: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      emailOrUsernameOrPhone: Yup.string().required("Required"),
+      password: Yup.string().required("Required"),
+    }),
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(
+          "https://minpro-blog.purwadhikabootcamp.com/api/auth/login",
+          values
+        );
 
-  // if (isAuthenticated) {
-  //   return <Navigate to="/checklogin" />;
-  // }
+        const token = response.data.token;
+        if (keepLoggedIn) {
+          localStorage.setItem("token", token);
+        }
 
-  // ---------------------------------------------
-  const handleEmailOrUsernameOrPhoneChange = (event) => {
-    setEmailOrUsernameOrPhone(event.target.value);
-  };
+        setAuthStatus(true); //------------------------------------- FUNGSI DI UTILS/AUTH
+        toast({
+          title: "Login successful!",
+          status: "success",
+          duration: 7000,
+          isClosable: true,
+        });
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+        // localStorage.setItem("isAuthenticated", true); //----------------------------UBAH INI
+        navigate(-1); // Navigate to last page
+      } catch (error) {
+        // setAuthStatus(true);
+        toast({
+          title: "Username/password/phone/email salah",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+        console.log(error.response.data);
+      }
+    },
+  });
 
   const handleTogglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
-  const handleLoginSubmit = (event) => {
-    event.preventDefault();
-
-    // Find the matching login data based on the entered email/username/phone
-    const matchedLogin = login.find((loginData) => {
-      return (
-        emailOrUsernameOrPhone === loginData.username ||
-        emailOrUsernameOrPhone === loginData.email ||
-        emailOrUsernameOrPhone === loginData.phone
-      );
-    });
-
-    // Check if a matching login data was found and the password is correct
-    if (matchedLogin && password === matchedLogin.password) {
-      setAuthStatus(true); // Set authentication status to true
-      toast({
-        title: "Login successful!",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
-      localStorage.setItem("isAuthenticated", true);
-      navigate(-1); // Navigate to create article page
-    } else {
-      toast({
-        title: "Invalid username or password",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
+  const handleKeepLoggedInChange = (event) => {
+    setKeepLoggedIn(event.target.checked);
   };
 
   return (
@@ -115,25 +94,41 @@ function LoginPage() {
       <Heading as="h1" size="xl" mb={4}>
         Login
       </Heading>
-      <form onSubmit={handleLoginSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <FormControl id="emailOrUsernameOrPhone" mb={4}>
           <FormLabel>Email or Username or Phone</FormLabel>
           <Input
             type="text"
-            value={emailOrUsernameOrPhone}
-            onChange={handleEmailOrUsernameOrPhoneChange}
-            required
+            value={formik.values.emailOrUsernameOrPhone}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={
+              formik.touched.emailOrUsernameOrPhone &&
+              formik.errors.emailOrUsernameOrPhone
+            }
           />
+          {formik.touched.emailOrUsernameOrPhone &&
+          formik.errors.emailOrUsernameOrPhone ? (
+            <Text color="red.500" fontSize="sm" mt={1}>
+              {formik.errors.emailOrUsernameOrPhone}
+            </Text>
+          ) : null}
         </FormControl>
         <FormControl id="password" mb={4}>
           <FormLabel>Password</FormLabel>
           <InputGroup size="md">
             <Input
               type={isPasswordVisible ? "text" : "password"}
-              value={password}
-              onChange={handlePasswordChange}
-              required
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              isInvalid={formik.touched.password && formik.errors.password}
             />
+            {formik.touched.password && formik.errors.password ? (
+              <Text color="red.500" fontSize="sm" mt={1}>
+                {formik.errors.password}
+              </Text>
+            ) : null}
             <InputRightElement>
               <IconButton
                 aria-label={
@@ -147,6 +142,14 @@ function LoginPage() {
             </InputRightElement>
           </InputGroup>
         </FormControl>
+        <Checkbox
+          isChecked={keepLoggedIn}
+          onChange={handleKeepLoggedInChange}
+          colorScheme="blue"
+          mb={4}
+        >
+          Keep me logged in
+        </Checkbox>
         <Button type="submit" size="sm" variant="outline" w="full">
           Login
         </Button>

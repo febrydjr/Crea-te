@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { Box, Image, Text, Button, Flex, VStack } from "@chakra-ui/react";
 import articlesData from "../data/articles";
+import { FaHeart } from "react-icons/fa";
+import axios from "axios";
 
 function withAuth(Component) {
   return function WrappedComponent(props) {
@@ -25,15 +26,29 @@ function withAuth(Component) {
 
 const ArticlePage = () => {
   const navigate = useNavigate();
+  const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 1;
-  const totalArticles = articlesData.length;
+  const totalArticles = articles.length;
   const totalPages = Math.ceil(totalArticles / articlesPerPage);
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-  const currentArticle = articlesData[indexOfFirstArticle];
+  const currentArticle = articles[indexOfFirstArticle];
   const [prevPage, setPrevPage] = useState(null);
   const [nextPage, setNextPage] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get("http://localhost:3010/articles");
+      setArticles(response.data);
+    } catch (error) {
+      console.error("error fetching articles", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber === prevPage && currentPage === 1) {
@@ -76,6 +91,10 @@ const ArticlePage = () => {
     return null; // or handle the case when the current article is not available
   }
 
+  const handleLikeClick = () => {
+    setIsLiked((prevIsLiked) => !prevIsLiked);
+  };
+
   return (
     <Box
       bgImage={"https://wallpaperaccess.com/full/8881426.gif"}
@@ -90,7 +109,19 @@ const ArticlePage = () => {
           overflow="hidden"
         >
           <Image src={currentArticle.thumbnail} alt={currentArticle.title} />
+
           <Box p={4}>
+            <Box display={"flex"} justifyContent={"flex-end"}>
+              <Button
+                onClick={handleLikeClick}
+                colorScheme={isLiked ? "red" : "gray"}
+                size="md"
+                px={2}
+                py={2}
+              >
+                <FaHeart size={24} />
+              </Button>
+            </Box>
             <Text fontSize="xl" fontWeight="bold" mb={2}>
               {currentArticle.title}
             </Text>
@@ -103,6 +134,7 @@ const ArticlePage = () => {
           </Box>
         </Box>
       </Box>
+
       <Flex justifyContent="center" alignItems="center">
         <Button
           onClick={() => handlePageChange(prevPage)}

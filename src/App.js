@@ -73,7 +73,6 @@ function App() {
         <Route path="/search-results" element={<SearchResults />} />
         <Route path="/checklogin" element={<CheckLogin />} />
         <Route path="/register" element={<RegisterPage />} />
-        {/* <Route path="/verification/:token" element={<VerifyPage />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
@@ -87,8 +86,9 @@ function App() {
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/create-blog" element={<CreateBlogPage />} />
         <Route path="/blogs/:id" element={<BlogDetailPage blogs={blogs} />} />
-        {/* <Route path="/verification/:token" element={<VerificationPage />} /> */}
-        <Route path="/verification/:token" component={VerificationPage} />
+        {/* <Route path="/verification/:token" element={<VerifyPage />} /> */}
+        <Route path="/verification/:token" element={<VerificationPage />} />
+        {/* <Route path="/verification/:token" component={VerificationPage} /> */}
       </Routes>
       {/* <BlogFilter blogs={blogs} setBlogs={setBlogs} />
       <BlogSort blogs={blogs} setBlogs={setBlogs} /> */}
