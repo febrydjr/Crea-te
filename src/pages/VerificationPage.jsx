@@ -9,43 +9,6 @@ function VerificationPage() {
   const url = window.location.href.split("/");
   const token = url[url.length - 1];
   console.log(token);
-  // const { token } = useParams();
-
-  // useEffect(() => {
-  //   const handleVerification = async () => {
-  //     try {
-  //       const headers = {
-  //         Authorization: `Bearer ${token}`,
-  //       };
-  //       const response = await axios.patch(
-  //         "https://minpro-blog.purwadhikabootcamp.com/api/auth/verify",
-  //         {},
-  //         {
-  //           headers,
-  //         }
-  //       );
-  //       if (response.status === 200) {
-  //         setIsVerified(true);
-  //         toast({
-  //           title: "Account verified!",
-  //           status: "success",
-  //           duration: 2000,
-  //           isClosable: true,
-  //         });
-  //       }
-  //     } catch (error) {
-  //       toast({
-  //         title: "Verification failed!",
-  //         description: error.response.data.message || "Something went wrong",
-  //         status: "error",
-  //         duration: 2000,
-  //         isClosable: true,
-  //       });
-  //     }
-  //   };
-
-  //   handleVerification();
-  // }, [toast, token]);
 
   const verify = async () => {
     try {
