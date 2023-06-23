@@ -74,8 +74,9 @@ const RegisterPage = () => {
       borderWidth={1}
       borderRadius="lg"
       boxShadow="lg"
+      fontFamily={"monospace"}
     >
-      <Heading as="h1" size="xl" mb={4}>
+      <Heading fontFamily={"monospace"} as="h1" size="xl" mb={4}>
         Register
       </Heading>
       <Formik
@@ -160,7 +161,13 @@ const RegisterPage = () => {
             )}
           </Field>
 
-          <Button type="submit" size="sm" variant="outline" w="full">
+          <Button
+            mt={4}
+            type="submit"
+            size="md"
+            // justify="center"
+            colorScheme="facebook"
+          >
             Register
           </Button>
         </Form>

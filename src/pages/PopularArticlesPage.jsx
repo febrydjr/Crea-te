@@ -57,9 +57,9 @@ function PopularArticlesPage() {
       </Heading>
       <Tabs variant="soft-rounded" colorScheme="blue">
         <TabList fontFamily={"monospace"} mb={4}>
-          <Tab color={"white"}>All Time</Tab>
-          <Tab color={"white"}>Monthly</Tab>
-          <Tab color={"white"}>Weekly</Tab>
+          <Tab color={"white"}>Popular</Tab>
+          {/* <Tab color={"white"}>Monthly</Tab> */}
+          {/* <Tab color={"white"}>Weekly</Tab> */}
         </TabList>
         <TabPanels>
           <TabPanel>

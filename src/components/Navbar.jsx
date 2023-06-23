@@ -2,6 +2,7 @@ import {
   Box,
   Flex,
   Link,
+  Text,
   Spacer,
   Image,
   Avatar,
@@ -9,24 +10,37 @@ import {
   Collapse,
   Input,
   Button,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { BiSolidSearch } from "react-icons/bi";
 import articlesData from "../data/articles";
 import { TfiWrite } from "react-icons/tfi";
 import { EditIcon } from "@chakra-ui/icons";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isToggle, setIsToggle] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const isAuthenticated = localStorage.getItem("isAuthenticated"); // Fetch authentication status from local storage
 
+  const finalRef = useRef(null);
+
   const handleToggle = () => {
-    setIsOpen(!isOpen);
+    setIsToggle(!isToggle);
   };
 
   const handleSearch = () => {
@@ -46,6 +60,8 @@ function Navbar() {
   const handleLogout = () => {
     // Implement your logout logic here
     localStorage.removeItem("isAuthenticated"); // Remove authentication status from local storage
+    onClose();
+    navigate("/");
   };
 
   return (
@@ -118,8 +134,13 @@ function Navbar() {
             _hover={{ textDecoration: "none" }}
             // rightIcon={<EditIcon />}
           >
-            <Button variant={"outline"} size={"sm"} color={"white"}>
-              WRITE!
+            <Button
+              // variant={"outline"}
+              size={"sm"}
+              color={"#1A202C"}
+              bgColor={"whitesmoke"}
+            >
+              CREATE!
               <TfiWrite size={20} />
             </Button>
           </Link>
@@ -130,10 +151,42 @@ function Navbar() {
                 as={RouterLink}
                 to="/"
                 // mr={4}
-                onClick={handleLogout}
+                onClick={onOpen}
+                bgColor={"red.500"}
               >
                 Logout
               </Button>
+              {/* MODAL ---------------------------- */}
+              <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader fontSize={"2xl"} fontFamily={"monospace"}>
+                    Logout?
+                  </ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    <Text fontFamily={"monospace"} fontSize={"md"}>
+                      Are you sure want to logout? you need login again to
+                      create an article.
+                    </Text>
+                  </ModalBody>
+
+                  <ModalFooter>
+                    {/* <Button colorScheme="teal" mr={3} onClick={onClose}>
+                      Close
+                    </Button> */}
+                    <Button
+                      onClick={handleLogout}
+                      // onClick={(() => handleLogout(), navigate("/"))}
+                      // navigate={navigate("/")}
+                      colorScheme="red"
+                    >
+                      Logout
+                    </Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
+              {/* --------------------------------- */}
               <Link as={RouterLink} to="/profile">
                 <Avatar name="User" src="/profile" size="sm" ml={4} />
               </Link>
@@ -160,14 +213,29 @@ function Navbar() {
         </Flex>
         <IconButton
           aria-label="Toggle navigation"
-          icon={isOpen ? <AiOutlineClose /> : <GiHamburgerMenu />}
+          icon={isToggle ? <AiOutlineClose /> : <GiHamburgerMenu />}
           onClick={handleToggle}
           display={{ base: "flex", md: "none" }}
         />
       </Flex>
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse in={isToggle} animateOpacity>
         <Flex direction="column" mt={4} color="white">
-          {/* Existing code */}
+          <Link
+            as={RouterLink}
+            to="/articles/popular"
+            mr={4}
+            _hover={{ textDecoration: "none" }}
+          >
+            Popular
+          </Link>
+          <Link
+            as={RouterLink}
+            to="/myblogs"
+            mr={4}
+            _hover={{ textDecoration: "none" }}
+          >
+            My Blog
+          </Link>
         </Flex>
       </Collapse>
     </Box>

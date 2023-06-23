@@ -7,9 +7,12 @@ import {
   FormLabel,
   Image,
   Input,
+  InputGroup,
+  InputRightElement,
   Text,
   VStack,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 // import SideLogo from "../assets/logo_purple.png";
 // import ForgotPassModal from "../components/ForgotPassModal";
@@ -21,11 +24,16 @@ import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { Link, navigate, useNavigate } from "react-router-dom";
 import { setAuthStatus } from "../utils/auth";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const LoginPage = () => {
+  const [show, setShow] = React.useState(false);
+  const handleClickShowPW = () => setShow(!show);
   const navigate = useNavigate();
   // modal for forgot password
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   const onForgot = () => {
     onOpen();
@@ -58,9 +66,23 @@ const LoginPage = () => {
       if (res.status === 200) {
         dispatch(loginSuccess(res.data.token));
         setAuthStatus(true);
+        toast({
+          title: "Login successful!",
+          description: "Happy to see you again!",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
         navigate("/");
       }
     } catch (err) {
+      toast({
+        title: "Login failed!",
+        description: "Something went wrong",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
       console.log(err);
     }
   };
@@ -95,7 +117,9 @@ const LoginPage = () => {
       margin={"auto"}
       mt={20}
       mb={20}
-      w={"30%"}
+      w={"20%"}
+      h={"350px"}
+      borderRadius={4}
     >
       {/* <Flex> */}
       {/* <Box w={"40%"} h={"100vh"} bgColor={"#E0AAFF"}>
@@ -168,6 +192,7 @@ const LoginPage = () => {
                 id="email"
                 name="email"
                 type="email"
+                placeholder="Enter your email address"
                 onChange={formik.handleChange}
                 value={formik.values.email}
                 rounded={"lg"}
@@ -182,7 +207,7 @@ const LoginPage = () => {
               <FormLabel htmlFor="password" mt={"4"}>
                 <Flex alignItems={"baseline"} justifyContent={"space-between"}>
                   Password
-                  <Button variant={"link"} onClick={onForgot}>
+                  {/* <Button variant={"link"} onClick={onForgot}>
                     <Text
                       fontSize={"xs"}
                       fontWeight={400}
@@ -191,34 +216,47 @@ const LoginPage = () => {
                     >
                       Forgot Password?
                     </Text>
-                  </Button>
+                  </Button> */}
                 </Flex>
               </FormLabel>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                onChange={formik.handleChange}
-                value={formik.values.password}
-                rounded={"lg"}
-              />
-              {formik.touched.password && formik.errors.password && (
-                <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-              )}
+              <InputGroup>
+                <Input
+                  id="password"
+                  name="password"
+                  type={show ? "text" : "password"}
+                  placeholder="Enter your password"
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
+                  rounded={"lg"}
+                />
+                <InputRightElement>
+                  <Button h="42px" size="sm" onClick={handleClickShowPW}>
+                    {show ? (
+                      <AiFillEyeInvisible size={"23px"} />
+                    ) : (
+                      <AiFillEye size={"23px"} />
+                    )}
+                  </Button>
+                </InputRightElement>
+                {formik.touched.password && formik.errors.password && (
+                  <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+                )}
+              </InputGroup>
             </FormControl>
             <Button
+              rightIcon={<ArrowForwardIcon />}
               type="submit"
               display={"flex"}
               justifyContent={"center"}
               w={"100%"}
-              mt={"6"}
+              mt={"8"}
               rounded={"lg"}
               color={"white"}
               colorScheme={"facebook"}
               // _hover={{ bgColor: "blue" }}
               // _active={{ bgColor: "#6C12B5" }}
             >
-              Sign In
+              Login
             </Button>
           </form>
         </Box>
