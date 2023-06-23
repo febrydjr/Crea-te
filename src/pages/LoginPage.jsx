@@ -111,18 +111,28 @@ const LoginPage = () => {
 
   return (
     <Box
-      boxShadow={"lg"}
-      p={4}
-      fontFamily={"monospace"}
-      margin={"auto"}
-      mt={20}
-      mb={20}
-      w={"20%"}
-      h={"350px"}
-      borderRadius={4}
+      bgImg={
+        "https://i.pinimg.com/originals/3b/e1/cf/3be1cf74f40ee3cad370e4d0932544f2.gif"
+      }
+      maxW={"100vw"}
+      maxH={"100vh"}
+      px={6}
+      py={4}
     >
-      {/* <Flex> */}
-      {/* <Box w={"40%"} h={"100vh"} bgColor={"#E0AAFF"}>
+      <Box
+        bg={"whitesmoke"}
+        boxShadow={"lg"}
+        p={4}
+        fontFamily={"monospace"}
+        margin={"auto"}
+        mt={20}
+        mb={20}
+        w={"20%"}
+        h={"350px"}
+        borderRadius={4}
+      >
+        {/* <Flex> */}
+        {/* <Box w={"40%"} h={"100vh"} bgColor={"#E0AAFF"}>
           <Link to={"/"}>
             <Image
               src="https://picsum.photos/200"
@@ -141,8 +151,8 @@ const LoginPage = () => {
             Richard Bach
           </Text>
         </Box> */}
-      <Box>
-        {/* <Box
+        <Box>
+          {/* <Box
             display={"flex"}
             justifyContent={"flex-end"}
             gap={4}
@@ -160,20 +170,20 @@ const LoginPage = () => {
               Sign up now
             </Button>
           </Box> */}
-        {/* <VStack spacing={"4"} p={"20px 50px"}> */}
-        <Box w={"200px"}>
-          <Text
-            w={"100%"}
-            // fontSize={"xx-large"}
-            display={"flex"}
-            justifyContent={"flex-start"}
-            fontWeight={"bold"}
-            mb={4}
-            fontSize={"4xl"}
-          >
-            Log In!
-          </Text>
-          {/* <Text
+          {/* <VStack spacing={"4"} p={"20px 50px"}> */}
+          <Box w={"200px"}>
+            <Text
+              w={"100%"}
+              // fontSize={"xx-large"}
+              display={"flex"}
+              justifyContent={"flex-start"}
+              fontWeight={"bold"}
+              mb={4}
+              fontSize={"4xl"}
+            >
+              Log In!
+            </Text>
+            {/* <Text
                 fontSize={"xs"}
                 color={"gray.400"}
                 fontStyle={"italic"}
@@ -181,33 +191,36 @@ const LoginPage = () => {
               >
                 You can login by username, email, or phone number
               </Text> */}
-        </Box>
-        <Box w={"full"}>
-          <form onSubmit={formik.handleSubmit}>
-            <FormControl
-              isInvalid={formik.touched.email && formik.errors.email}
-            >
-              <FormLabel htmlFor="email">Email Address</FormLabel>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Enter your email address"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-                rounded={"lg"}
-              />
-              {formik.touched.email && formik.errors.email && (
-                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-              )}
-            </FormControl>
-            <FormControl
-              isInvalid={formik.touched.password && formik.errors.password}
-            >
-              <FormLabel htmlFor="password" mt={"4"}>
-                <Flex alignItems={"baseline"} justifyContent={"space-between"}>
-                  Password
-                  {/* <Button variant={"link"} onClick={onForgot}>
+          </Box>
+          <Box w={"full"}>
+            <form onSubmit={formik.handleSubmit}>
+              <FormControl
+                isInvalid={formik.touched.email && formik.errors.email}
+              >
+                <FormLabel htmlFor="email">Email Address</FormLabel>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email address"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                  rounded={"lg"}
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+                )}
+              </FormControl>
+              <FormControl
+                isInvalid={formik.touched.password && formik.errors.password}
+              >
+                <FormLabel htmlFor="password" mt={"4"}>
+                  <Flex
+                    alignItems={"baseline"}
+                    justifyContent={"space-between"}
+                  >
+                    Password
+                    {/* <Button variant={"link"} onClick={onForgot}>
                     <Text
                       fontSize={"xs"}
                       fontWeight={400}
@@ -217,52 +230,55 @@ const LoginPage = () => {
                       Forgot Password?
                     </Text>
                   </Button> */}
-                </Flex>
-              </FormLabel>
-              <InputGroup>
-                <Input
-                  id="password"
-                  name="password"
-                  type={show ? "text" : "password"}
-                  placeholder="Enter your password"
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  rounded={"lg"}
-                />
-                <InputRightElement>
-                  <Button h="42px" size="sm" onClick={handleClickShowPW}>
-                    {show ? (
-                      <AiFillEyeInvisible size={"23px"} />
-                    ) : (
-                      <AiFillEye size={"23px"} />
-                    )}
-                  </Button>
-                </InputRightElement>
-                {formik.touched.password && formik.errors.password && (
-                  <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-                )}
-              </InputGroup>
-            </FormControl>
-            <Button
-              rightIcon={<ArrowForwardIcon />}
-              type="submit"
-              display={"flex"}
-              justifyContent={"center"}
-              w={"100%"}
-              mt={"8"}
-              rounded={"lg"}
-              color={"white"}
-              colorScheme={"facebook"}
-              // _hover={{ bgColor: "blue" }}
-              // _active={{ bgColor: "#6C12B5" }}
-            >
-              Login
-            </Button>
-          </form>
+                  </Flex>
+                </FormLabel>
+                <InputGroup>
+                  <Input
+                    id="password"
+                    name="password"
+                    type={show ? "text" : "password"}
+                    placeholder="Enter your password"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    rounded={"lg"}
+                  />
+                  <InputRightElement>
+                    <Button h="42px" size="sm" onClick={handleClickShowPW}>
+                      {show ? (
+                        <AiFillEyeInvisible size={"23px"} />
+                      ) : (
+                        <AiFillEye size={"23px"} />
+                      )}
+                    </Button>
+                  </InputRightElement>
+                  {formik.touched.password && formik.errors.password && (
+                    <FormErrorMessage>
+                      {formik.errors.password}
+                    </FormErrorMessage>
+                  )}
+                </InputGroup>
+              </FormControl>
+              <Button
+                rightIcon={<ArrowForwardIcon />}
+                type="submit"
+                display={"flex"}
+                justifyContent={"center"}
+                w={"100%"}
+                mt={"8"}
+                rounded={"lg"}
+                color={"white"}
+                colorScheme={"facebook"}
+                // _hover={{ bgColor: "blue" }}
+                // _active={{ bgColor: "#6C12B5" }}
+              >
+                Login
+              </Button>
+            </form>
+          </Box>
+          {/* </VStack> */}
         </Box>
-        {/* </VStack> */}
+        {/* </Flex> */}
       </Box>
-      {/* </Flex> */}
     </Box>
   );
 };

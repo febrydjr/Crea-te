@@ -75,12 +75,14 @@ function Navbar() {
     >
       <Flex align="center" justify="space-between" color="white">
         <Flex align="center">
-          <Image
-            src="https://seeklogo.com/images/S/spider-man-logo-FD57A89F7D-seeklogo.com.png"
-            alt="Logo"
-            boxSize={8}
-            mr={4}
-          />
+          <Link as={RouterLink} to="/">
+            <Image
+              src="https://seeklogo.com/images/S/spider-man-logo-FD57A89F7D-seeklogo.com.png"
+              alt="Logo"
+              boxSize={8}
+              mr={4}
+            />
+          </Link>
           <Link
             as={RouterLink}
             to="/"
@@ -88,8 +90,10 @@ function Navbar() {
             fontSize="2xl"
             // mt={2}
             _hover={{ textDecoration: "none" }}
+            // fontStyle={"italic"}
+            fontFamily={"monospace"}
           >
-            MAIBLOGGGG
+            CREAṯE
           </Link>
           <Input
             // size={"lg"}
@@ -138,9 +142,10 @@ function Navbar() {
               // variant={"outline"}
               size={"sm"}
               color={"#1A202C"}
+              _hover={{ textColor: "white", bgColor: "#3b5998" }}
               bgColor={"whitesmoke"}
             >
-              CREATE!
+              CREAṯE&nbsp;
               <TfiWrite size={20} />
             </Button>
           </Link>
@@ -152,22 +157,33 @@ function Navbar() {
                 to="/"
                 // mr={4}
                 onClick={onOpen}
+                _hover={{ textColor: "black", bgColor: "white" }}
                 bgColor={"red.500"}
+                textColor={"white"}
               >
-                Logout
+                Farewell?
               </Button>
               {/* MODAL ---------------------------- */}
               <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
                   <ModalHeader fontSize={"2xl"} fontFamily={"monospace"}>
-                    Logout?
+                    Farewell?
                   </ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
                     <Text fontFamily={"monospace"} fontSize={"md"}>
-                      Are you sure want to logout? you need login again to
-                      create an article.
+                      Hai! Sebelum mengucapkan selamat tinggal dan keluar dari
+                      akun kamu, aku hanya ingin memberi informasi. Ingatlah
+                      untuk memeriksa kembali pengaturan akunmu, pastikan semua
+                      data penting Anda disimpan, dan ucapkan selamat tinggal
+                      pada urusan yang belum selesai.
+                      <br />
+                      <br />
+                      aku benci perpisahan yang datang dengan penyesalan, jadi
+                      luangkan waktu sejenak untuk memastikan bahwa kamu sudah
+                      siap. Siap? Baiklah, silakan klik tombol logout itu dan
+                      istirahat. aku akan berada di sini menunggumu kembali!
                     </Text>
                   </ModalBody>
 
@@ -176,6 +192,7 @@ function Navbar() {
                       Close
                     </Button> */}
                     <Button
+                      fontFamily={"monospace"}
                       onClick={handleLogout}
                       // onClick={(() => handleLogout(), navigate("/"))}
                       // navigate={navigate("/")}

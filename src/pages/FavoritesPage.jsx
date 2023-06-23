@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Heading, SimpleGrid, useToast } from "@chakra-ui/react";
-import ArticleCard from "./ArticleCard";
+import ArticleCard from "../components/ArticleCard";
 
 function FavoritesPage() {
   const [favoriteArticles, setFavoriteArticles] = useState([]);

@@ -10,9 +10,12 @@ import ArticlePage from "./ArticlePage";
 function LandingPage() {
   return (
     <Box
-      bgImage={
-        "https://cdna.artstation.com/p/assets/images/images/036/667/760/original/denis-quinn-untitled-1.gif?1618303464"
+      bgImg={
+        "https://i.pinimg.com/originals/3b/e1/cf/3be1cf74f40ee3cad370e4d0932544f2.gif"
       }
+      maxW={"100vw"}
+      // px={4}
+      // py={4}
       bgSize="cover"
       // bgRepeat="no-repeat"
     >
@@ -34,7 +37,11 @@ function LandingPage() {
           Artikel Populer
         </Heading>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={5}>
+        <SimpleGrid
+          color={"white"}
+          columns={{ base: 1, md: 2, lg: 4 }}
+          spacing={5}
+        >
           <CategorySection
             title="Teknologi"
             articles={articlesData}

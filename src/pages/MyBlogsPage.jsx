@@ -17,7 +17,7 @@ import {
   Text,
   Select,
 } from "@chakra-ui/react";
-import ArticleCard from "./ArticleCard";
+import ArticleCard from "../components/ArticleCard";
 import articlesData from "../data/articles";
 import FavoritesPage from "./FavoritesPage";
 import BlogFilter from "../components/BlogFilter";

@@ -46,14 +46,20 @@ function CategorySection({ title, category }) {
           mb={4}
         />
 
-        <Heading fontFamily={"monospace"} as="h4" size="md" mb={2}>
+        <Heading
+          color={"black"}
+          fontFamily={"monospace"}
+          as="h4"
+          size="md"
+          mb={2}
+        >
           {categoryArticle.title}
         </Heading>
         <Text fontFamily={"monospace"} color="gray.600" mb={2}>
           Author: {categoryArticle.author} <br />
           {categoryArticle.date}
         </Text>
-        <Text fontFamily={"monospace"} fontSize={"md"}>
+        <Text color={"black"} fontFamily={"monospace"} fontSize={"md"}>
           {categoryArticle.content.slice(0, 200)}
         </Text>
         <Link
