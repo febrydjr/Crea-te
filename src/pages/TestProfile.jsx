@@ -8,12 +8,15 @@ import {
   Text,
   Link,
   Divider,
+  useDisclosure,
 } from "@chakra-ui/react";
 import ChangePasswordPage from "./ChangePasswordPage";
 import ResetPasswordPage from "./ResetPasswordPage";
 import VerifyPage from "./VerificationPage";
 import Dropzone from "react-dropzone";
 import ProfilePage from "./ProfilePage";
+
+import ForgotPassModal from "../components/ForgotPassModal";
 
 function withAuth(Component) {
   return function WrappedComponent(props) {
@@ -36,6 +39,11 @@ function withAuth(Component) {
 const TestProfile = () => {
   const [activePage, setActivePage] = useState("updateprofile");
   const [avatar, setAvatar] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const onForgot = () => {
+    onOpen();
+  };
 
   const renderPage = () => {
     switch (activePage) {
@@ -105,7 +113,8 @@ const TestProfile = () => {
             fontSize={"md"}
             fontWeight={"bold"}
             ml={1}
-            onClick={() => setActivePage("resetpassword")}
+            // onClick={() => setActivePage("resetpassword")}
+            onClick={onForgot}
             color={activePage === "resetpassword" ? "blue.300" : "inherit"}
           >
             Reset Password
@@ -121,7 +130,7 @@ const TestProfile = () => {
           </Link> */}
         </VStack>
       </Box>
-
+      <ForgotPassModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       {/* Main Content */}
       <Box flex="1" p={4}>
         {renderPage()}

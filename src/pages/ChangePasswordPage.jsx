@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   Box,
   Heading,
@@ -12,31 +10,14 @@ import {
   IconButton,
   Button,
   useToast,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-function withAuth(Component) {
-  return function WrappedComponent(props) {
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
-    const navigate = useNavigate();
-
-    useEffect(() => {
-      if (!isAuthenticated) {
-        navigate("/login");
-      }
-    }, [isAuthenticated, navigate]);
-
-    if (!isAuthenticated) {
-      return null; // or any other placeholder while checking authentication
-    }
-
-    return <Component {...props} />;
-  };
-}
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
 
 function ChangePasswordPage() {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [isPasswordChanged, setIsPasswordChanged] = useState(false);
   const [isOldPasswordVisible, setIsOldPasswordVisible] = useState(false);
   const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
@@ -44,17 +25,56 @@ function ChangePasswordPage() {
     useState(false);
   const toast = useToast();
 
-  const handleOldPasswordChange = (event) => {
-    setOldPassword(event.target.value);
-  };
+  const validationSchema = Yup.object().shape({
+    currentPassword: Yup.string().required("Current Password is required"),
+    password: Yup.string().required("New Password is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Confirm New Password is required"),
+  });
 
-  const handleNewPasswordChange = (event) => {
-    setNewPassword(event.target.value);
-  };
+  const formik = useFormik({
+    initialValues: {
+      currentPassword: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const { currentPassword, password, confirmPassword } = values;
+      const token = localStorage.getItem("token");
 
-  const handleConfirmNewPasswordChange = (event) => {
-    setConfirmNewPassword(event.target.value);
-  };
+      const data = {
+        currentPassword,
+        password,
+        confirmPassword,
+      };
+
+      const config = {
+        method: "patch",
+        maxBodyLength: Infinity,
+        url: "https://minpro-blog.purwadhikabootcamp.com/api/auth/changePass",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: data,
+      };
+
+      try {
+        const response = await axios(config);
+        console.log(response.data);
+        setIsPasswordChanged(true);
+        toast({
+          title: "Password changed successfully!",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
 
   const handleToggleOldPasswordVisibility = () => {
     setIsOldPasswordVisible(!isOldPasswordVisible);
@@ -68,32 +88,28 @@ function ChangePasswordPage() {
     setIsConfirmNewPasswordVisible(!isConfirmNewPasswordVisible);
   };
 
-  const handleChangePasswordSubmit = (event) => {
-    event.preventDefault();
-    // Implement your change password logic here
-    setIsPasswordChanged(true);
-    toast({
-      title: "Password changed successfully!",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
-  };
-
   if (!isPasswordChanged) {
     return (
       <Box marginBottom={"250px"} px={6} py={4}>
         <Heading fontFamily={"monospace"} as="h1" size="xl" mb={4}>
           Change Password
         </Heading>
-        <Box as="form" onSubmit={handleChangePasswordSubmit}>
-          <FormControl id="oldPassword" mb={4}>
+        <Box as="form" onSubmit={formik.handleSubmit}>
+          <FormControl
+            id="oldPassword"
+            mb={4}
+            isInvalid={
+              formik.touched.currentPassword && formik.errors.currentPassword
+            }
+          >
             <FormLabel>Old Password</FormLabel>
             <InputGroup size="md">
               <Input
                 type={isOldPasswordVisible ? "text" : "password"}
-                value={oldPassword}
-                onChange={handleOldPasswordChange}
+                value={formik.values.currentPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                name="currentPassword"
                 required
               />
               <InputRightElement>
@@ -108,14 +124,26 @@ function ChangePasswordPage() {
                 />
               </InputRightElement>
             </InputGroup>
+            {formik.touched.currentPassword &&
+              formik.errors.currentPassword && (
+                <FormErrorMessage>
+                  {formik.errors.currentPassword}
+                </FormErrorMessage>
+              )}
           </FormControl>
-          <FormControl id="newPassword" mb={4}>
+          <FormControl
+            id="newPassword"
+            mb={4}
+            isInvalid={formik.touched.password && formik.errors.password}
+          >
             <FormLabel>New Password</FormLabel>
             <InputGroup size="md">
               <Input
                 type={isNewPasswordVisible ? "text" : "password"}
-                value={newPassword}
-                onChange={handleNewPasswordChange}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                name="password"
                 required
               />
               <InputRightElement>
@@ -130,14 +158,25 @@ function ChangePasswordPage() {
                 />
               </InputRightElement>
             </InputGroup>
+            {formik.touched.password && formik.errors.password && (
+              <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+            )}
           </FormControl>
-          <FormControl id="confirmNewPassword" mb={4}>
+          <FormControl
+            id="confirmNewPassword"
+            mb={4}
+            isInvalid={
+              formik.touched.confirmPassword && formik.errors.confirmPassword
+            }
+          >
             <FormLabel>Confirm New Password</FormLabel>
             <InputGroup size="md">
               <Input
                 type={isConfirmNewPasswordVisible ? "text" : "password"}
-                value={confirmNewPassword}
-                onChange={handleConfirmNewPasswordChange}
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                name="confirmPassword"
                 required
               />
               <InputRightElement>
@@ -156,6 +195,12 @@ function ChangePasswordPage() {
                 />
               </InputRightElement>
             </InputGroup>
+            {formik.touched.confirmPassword &&
+              formik.errors.confirmPassword && (
+                <FormErrorMessage>
+                  {formik.errors.confirmPassword}
+                </FormErrorMessage>
+              )}
           </FormControl>
           <Button
             mt={2}
@@ -163,6 +208,7 @@ function ChangePasswordPage() {
             size="md"
             variant="solid"
             colorScheme="facebook"
+            isLoading={formik.isSubmitting}
           >
             Change Password
           </Button>

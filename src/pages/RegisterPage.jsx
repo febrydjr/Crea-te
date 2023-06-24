@@ -95,6 +95,7 @@ const RegisterPage = () => {
             password: "",
             confirmPassword: "",
             phone: "",
+            FE_URL: "http://localhost:3000",
           }}
           validationSchema={validationSchema}
           onSubmit={handleRegisterSubmit}

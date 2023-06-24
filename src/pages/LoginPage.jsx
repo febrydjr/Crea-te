@@ -15,8 +15,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 // import SideLogo from "../assets/logo_purple.png";
-// import ForgotPassModal from "../components/ForgotPassModal";
 import { loginSuccess } from "../utils/AuthReducer";
+import ForgotPassModal from "../components/ForgotPassModal";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
@@ -26,14 +26,27 @@ import { Link, navigate, useNavigate } from "react-router-dom";
 import { setAuthStatus } from "../utils/auth";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 
 const LoginPage = () => {
   const [show, setShow] = React.useState(false);
+
   const handleClickShowPW = () => setShow(!show);
   const navigate = useNavigate();
   // modal for forgot password
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const toast = useToast();
+
+  // modal for forgot password
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onForgot = () => {
     onOpen();
@@ -127,7 +140,7 @@ const LoginPage = () => {
         margin={"auto"}
         mt={20}
         mb={20}
-        w={"20%"}
+        w={"30%"}
         h={"350px"}
         borderRadius={4}
       >
@@ -220,16 +233,18 @@ const LoginPage = () => {
                     justifyContent={"space-between"}
                   >
                     Password
-                    {/* <Button variant={"link"} onClick={onForgot}>
-                    <Text
-                      fontSize={"xs"}
-                      fontWeight={400}
-                      color={"blue"}
-                      _hover={{ textDecoration: "underline" }}
-                    >
-                      Forgot Password?
-                    </Text>
-                  </Button> */}
+                    <Button variant={"link"} onClick={onForgot}>
+                      <Text
+                        fontSize={"xs"}
+                        fontWeight={400}
+                        color={"blue"}
+                        _hover={{ textDecoration: "underline" }}
+                      >
+                        Forgot Password?
+                      </Text>
+                    </Button>
+                    {/* MODAL ----------------------------------- */}
+                    {/* ________________________________________ */}
                   </Flex>
                 </FormLabel>
                 <InputGroup>
@@ -279,6 +294,7 @@ const LoginPage = () => {
         </Box>
         {/* </Flex> */}
       </Box>
+      <ForgotPassModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Box>
   );
 };
