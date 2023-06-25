@@ -9,8 +9,10 @@ function BannerCarousel() {
   const [articles, setArticles] = useState([]);
   const fetchArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:3010/articles");
-      setArticles(response.data);
+      const response = await axios.get(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=3&sort=ASC&page=1"
+      );
+      setArticles(response.data.result);
     } catch (error) {
       console.error("error fetching articles", error);
     }
@@ -34,7 +36,7 @@ function BannerCarousel() {
         {limitedArticlesData.map((articleData) => (
           <Box key={articleData.id}>
             <Flex
-              backgroundImage={articleData.thumbnail}
+              backgroundImage={`https://minpro-blog.purwadhikabootcamp.com/${articleData.imageURL}`}
               backgroundSize="cover"
               backgroundPosition="center"
               height="500px"

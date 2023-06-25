@@ -4,6 +4,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Image,
   Select,
   Stack,
   SimpleGrid,
@@ -18,8 +19,10 @@ const BlogFilter = () => {
   const [articles, setArticles] = useState([]);
   const fetchArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:3010/articles");
-      setArticles(response.data);
+      const response = await axios.get(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog"
+      );
+      setArticles(response.data.result);
     } catch (error) {
       console.error("error fetching articles", error);
     }
@@ -123,7 +126,10 @@ const BlogFilter = () => {
             <Text fontSize={"lg"} mb={2} fontWeight="bold">
               {article.title}
             </Text>
-            {/* <img src={article.thumbnail} alt={article.title} /> */}
+            <Image
+              src={`https://minpro-blog.purwadhikabootcamp.com/${article.imageURL}`}
+              alt={article.title}
+            />
             {/* <Box fontWeight="bold" mt={2}>
               {article.title}
             </Box> */}

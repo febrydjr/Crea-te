@@ -24,7 +24,7 @@ const ForgotPassModal = ({ isOpen, onClose }) => {
   });
 
   // Handle form submission
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values) => {
     try {
       // Send the PUT request to the endpoint
       await axios.put(
@@ -44,7 +44,7 @@ const ForgotPassModal = ({ isOpen, onClose }) => {
       // Show an error message to the user
     }
 
-    setSubmitting(false);
+    // setSubmitting(false);
   };
 
   return (
