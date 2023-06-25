@@ -27,6 +27,7 @@ import TestProfile from "./pages/TestProfile";
 import SearchResults from "./pages/SearchResults";
 // import VerificationPage from "./pages/VerifyPage";
 import VerificationPage from "./pages/VerificationPage";
+import VerificationEmail from "./pages/VerificationEmail";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -88,6 +89,11 @@ function App() {
         <Route path="/blogs/:id" element={<BlogDetailPage blogs={blogs} />} />
         {/* <Route path="/verification/:token" element={<VerifyPage />} /> */}
         <Route path="/verification/:token" element={<VerificationPage />} />
+        {/* <Route path="/verification/:token" element={<VerificationPage />} /> */}
+        <Route
+          path="/verification-change-email/:token"
+          element={<VerificationEmail />}
+        />
         {/* <Route path="/verification/:token" component={VerificationPage} /> */}
       </Routes>
       {/* <BlogFilter blogs={blogs} setBlogs={setBlogs} />

@@ -8,6 +8,7 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
+import MyBlogsPage from "../pages/MyBlogsPage";
 
 function ProfilePage() {
   const [username, setUsername] = useState("");
@@ -52,49 +53,52 @@ function ProfilePage() {
   }
 
   return (
-    <Box marginBottom={"250px"} px={6} py={4}>
-      <Heading fontFamily={"monospace"} as="h1" size="xl" mb={4}>
-        Update Profile
-      </Heading>
-      <Box as="form" onSubmit={handleUpdateProfileSubmit}>
-        <FormControl id="username" mb={4}>
-          <FormLabel>Username</FormLabel>
-          <Input
-            type="text"
-            value={username}
-            onChange={handleUsernameChange}
-            required
-          />
-        </FormControl>
-        <FormControl id="email" mb={4}>
-          <FormLabel>E-mail</FormLabel>
-          <Input
-            type="email"
-            value={email}
-            onChange={handleEmailChange}
-            required
-          />
-        </FormControl>
-        <FormControl id="phoneNumber" mb={4}>
-          <FormLabel>Phone Number</FormLabel>
-          <Input
-            type="tel"
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
-            required
-          />
-        </FormControl>
-        <Button
-          mt={2}
-          type="submit"
-          size="md"
-          variant="solid"
-          colorScheme="facebook"
-        >
-          Save
-        </Button>
-      </Box>
+    <Box>
+      <MyBlogsPage />
     </Box>
+    // <Box marginBottom={"250px"} px={6} py={4}>
+    //   <Heading fontFamily={"monospace"} as="h1" size="xl" mb={4}>
+    //     Update Profile
+    //   </Heading>
+    //   <Box as="form" onSubmit={handleUpdateProfileSubmit}>
+    //     <FormControl id="username" mb={4}>
+    //       <FormLabel>Username</FormLabel>
+    //       <Input
+    //         type="text"
+    //         value={username}
+    //         onChange={handleUsernameChange}
+    //         required
+    //       />
+    //     </FormControl>
+    //     <FormControl id="email" mb={4}>
+    //       <FormLabel>E-mail</FormLabel>
+    //       <Input
+    //         type="email"
+    //         value={email}
+    //         onChange={handleEmailChange}
+    //         required
+    //       />
+    //     </FormControl>
+    //     <FormControl id="phoneNumber" mb={4}>
+    //       <FormLabel>Phone Number</FormLabel>
+    //       <Input
+    //         type="tel"
+    //         value={phoneNumber}
+    //         onChange={handlePhoneNumberChange}
+    //         required
+    //       />
+    //     </FormControl>
+    //     <Button
+    //       mt={2}
+    //       type="submit"
+    //       size="md"
+    //       variant="solid"
+    //       colorScheme="facebook"
+    //     >
+    //       Save
+    //     </Button>
+    //   </Box>
+    // </Box>
   );
 }
 

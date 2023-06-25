@@ -60,6 +60,7 @@ function Navbar() {
   const handleLogout = () => {
     // Implement your logout logic here
     localStorage.removeItem("isAuthenticated"); // Remove authentication status from local storage
+    localStorage.removeItem("token"); // Remove authentication status from local storage
     onClose();
     navigate("/");
   };
@@ -123,14 +124,14 @@ function Navbar() {
             Popular
           </Link>
 
-          <Link
+          {/* <Link
             as={RouterLink}
             to="/myblogs"
             mr={4}
             _hover={{ textDecoration: "none" }}
           >
             My Blog
-          </Link>
+          </Link> */}
           <Link
             as={RouterLink}
             to="/create-article"
@@ -235,7 +236,7 @@ function Navbar() {
           display={{ base: "flex", md: "none" }}
         />
       </Flex>
-      <Collapse in={isToggle} animateOpacity>
+      {/* <Collapse in={isToggle} animateOpacity>
         <Flex direction="column" mt={4} color="white">
           <Link
             as={RouterLink}
@@ -254,7 +255,7 @@ function Navbar() {
             My Blog
           </Link>
         </Flex>
-      </Collapse>
+      </Collapse> */}
     </Box>
   );
 }
