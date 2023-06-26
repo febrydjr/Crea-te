@@ -29,8 +29,8 @@ function LandingPage() {
 
   return (
     <Box
-    // bgImg={"https://marvelapp.com/wp-content/uploads/2020/07/87.png"}
-    // maxW={"100vw"}
+      bgImg={"https://marvelapp.com/wp-content/uploads/2020/07/87.png"}
+      maxW={"100vw"}
     >
       <BannerCarousel articles={articlesData} />
 
