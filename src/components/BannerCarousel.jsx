@@ -32,7 +32,7 @@ function BannerCarousel() {
 
   return (
     <Box>
-      <Carousel showThumbs={false} autoPlay infiniteLoop useKeyboardArrows>
+      <Carousel showThumbs={false} autoPlay infiniteLoop>
         {limitedArticlesData.map((articleData) => (
           <Box key={articleData.id}>
             <Flex
