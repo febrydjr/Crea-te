@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Image, Text, Button, Flex, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Text,
+  Button,
+  Flex,
+  VStack,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import articlesData from "../data/articles";
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
@@ -39,8 +47,10 @@ const ArticlePage = () => {
   const [isLiked, setIsLiked] = useState(false);
   const fetchArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:3010/articles");
-      setArticles(response.data);
+      const response = await axios.get(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=3&sort=ASC&page=1"
+      );
+      setArticles(response.data.result);
     } catch (error) {
       console.error("error fetching articles", error);
     }
@@ -101,14 +111,18 @@ const ArticlePage = () => {
       bgSize={"cover"}
       p={4}
     >
-      <Box maxW="1100px" mx="auto" mb={6}>
+      {/* <SimpleGrid> */}
+      <Box maxW="1500px" mx="auto" mb={6}>
         <Box
           bgColor={"white"}
           borderWidth="1px"
           borderRadius="lg"
           overflow="hidden"
         >
-          <Image src={currentArticle.thumbnail} alt={currentArticle.title} />
+          <Image
+            src={`https://minpro-blog.purwadhikabootcamp.com/${currentArticle.imageURL}`}
+            alt={currentArticle.title}
+          />
 
           <Box p={4}>
             <Box display={"flex"} justifyContent={"flex-end"}>
@@ -134,6 +148,7 @@ const ArticlePage = () => {
           </Box>
         </Box>
       </Box>
+      {/* </SimpleGrid> */}
 
       <Flex justifyContent="center" alignItems="center">
         <Button

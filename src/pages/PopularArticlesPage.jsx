@@ -17,8 +17,10 @@ function PopularArticlesPage() {
   const [articles, setArticles] = useState([]);
   const fetchArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:3010/articles");
-      setArticles(response.data);
+      const response = await axios.get(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog/pagFav?page=2&orderBy=total_fav&sort=DESC"
+      );
+      setArticles(response.data.result);
     } catch (error) {
       console.error("error fetching articles", error);
     }
@@ -31,7 +33,9 @@ function PopularArticlesPage() {
   const [popularArticles, setPopularArticles] = useState([]);
 
   // Sort articles by popularity and slice the top 5
-  const sortedArticles = articles.sort((a, b) => b.views - a.views).slice(0, 5);
+  const sortedArticles = articles
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 10);
 
   // Update popular articles whenever the sorted articles change
   useState(() => {
@@ -84,10 +88,11 @@ function PopularArticlesPage() {
                     {article.title}
                   </Heading>
                   <Text fontFamily={"monospace"} fontSize="sm" color="gray.600">
-                    By {article.author} on {article.date}
+                    By {article.User.username} on{" "}
+                    {new Date(article.createdAt).toLocaleDateString("id")}
                   </Text>
                   <Text fontFamily={"monospace"} fontSize={"sm"} mt={4}>
-                    {article.content.slice(0, 250)}...
+                    {article.content.slice(0, 300)}...
                   </Text>
                 </Box>
               ))}
