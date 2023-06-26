@@ -44,9 +44,10 @@ function PopularArticlesPage() {
 
   return (
     <Box
-      bgImg={
-        "https://i.pinimg.com/originals/3b/e1/cf/3be1cf74f40ee3cad370e4d0932544f2.gif"
-      }
+      // bgImg={
+      //   "https://i.pinimg.com/originals/3b/e1/cf/3be1cf74f40ee3cad370e4d0932544f2.gif"
+      // }
+      bg={"#001C30"}
       maxW={"100vw"}
       px={6}
       py={4}

@@ -29,6 +29,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
+import "../App.css";
 
 function Navbar() {
   const [isToggle, setIsToggle] = useState(false);
@@ -69,7 +70,7 @@ function Navbar() {
     <Box
       fontFamily={"monospace"}
       fontSize={"large"}
-      bg="gray.800"
+      bg="#036280"
       py={4}
       px={8}
       // mb={8}
@@ -101,6 +102,7 @@ function Navbar() {
             w={"300px"}
             fontFamily={"monospace"}
             placeholder="Search articles, keywords, etc..."
+            _placeholder={{ color: "white" }}
             ml={6}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -110,7 +112,12 @@ function Navbar() {
               }
             }}
           />
-          <Button ml={2} colorScheme="facebook" onClick={handleSearch}>
+          <Button
+            ml={2}
+            colorScheme="gray"
+            _hover={{ bg: "#DAFFFB" }}
+            onClick={handleSearch}
+          >
             <AiOutlineSearch size={"20px"} />
           </Button>
         </Flex>

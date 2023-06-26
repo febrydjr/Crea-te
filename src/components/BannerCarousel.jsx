@@ -31,8 +31,8 @@ function BannerCarousel() {
   const limitedArticlesData = sortedArticlesData.slice(0, 10);
 
   return (
-    <Box mb={2}>
-      <Carousel showThumbs={false} autoPlay infiniteLoop>
+    <Box>
+      <Carousel showThumbs={false} autoPlay infiniteLoop useKeyboardArrows>
         {limitedArticlesData.map((articleData) => (
           <Box key={articleData.id}>
             <Flex
@@ -58,7 +58,7 @@ function BannerCarousel() {
                   fontFamily={"monospace"}
                   fontSize={"md"}
                 >
-                  Author: {articleData.author}
+                  Author: {articleData.User.username}
                 </Text>
               </Text>
             </Flex>

@@ -14,6 +14,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useToast } from "@chakra-ui/react";
 
 const ChangeUsernameModal = ({ isOpen, onClose }) => {
   // Define the validation schema using Yup
@@ -23,6 +24,7 @@ const ChangeUsernameModal = ({ isOpen, onClose }) => {
   });
 
   // Handle form submission
+  const toast = useToast();
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const token = localStorage.getItem("token");
@@ -44,10 +46,23 @@ const ChangeUsernameModal = ({ isOpen, onClose }) => {
 
       // Handle success response
       console.log("Username changed successfully");
+      toast({
+        title: "Username changed successfully",
+        description: "check your email for verification",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
       // Show a success message or close the modal
     } catch (error) {
       // Handle error response
       console.error("Error changing username:", error);
+      toast({
+        title: "Error changing username",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
       // Show an error message to the user
     }
 

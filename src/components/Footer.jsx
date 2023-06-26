@@ -17,7 +17,7 @@ function Footer() {
     <Box
       fontFamily={"monospace"}
       m={"auto"}
-      bg="gray.800"
+      bg="#378BA4"
       color="white"
       py={8}
       as="footer"
@@ -94,8 +94,8 @@ function Footer() {
             <Text fontSize="lg" fontWeight="bold" mb={4}>
               Contact Us
             </Text>
-            <Text fontSize={"sm"}>Email: info@example.com</Text>
-            <Text fontSize={"sm"}>Phone: +1 123 456 7890</Text>
+            <Text fontSize={"sm"}>Email: febrydj99@gmailcom</Text>
+            <Text fontSize={"sm"}>Phone: 085763167141</Text>
           </Box>
         </SimpleGrid>
       </Container>

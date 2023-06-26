@@ -1,3 +1,11 @@
 .text-editor .ql-editor {
   min-height: 200px; /* Set the desired height */
 }
+
+/* background: rgb(221,162,60); */
+.background: linear-gradient(
+  90deg,
+  rgba(221, 162, 60, 1) 0%,
+  rgba(255, 110, 1, 1) 39%,
+  rgba(31, 188, 221, 1) 100%
+);

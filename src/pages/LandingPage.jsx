@@ -1,4 +1,13 @@
-import { Box, Container, Heading, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  GridItem,
+  Container,
+  Heading,
+  SimpleGrid,
+  Text,
+  Flex,
+} from "@chakra-ui/react";
 import BannerCarousel from "../components/BannerCarousel";
 import CategorySection from "../components/CategorySection";
 import Footer from "../components/Footer";
@@ -28,44 +37,26 @@ function LandingPage() {
   }, []);
 
   return (
-    <Box
-      bgImg={"https://marvelapp.com/wp-content/uploads/2020/07/87.png"}
-      maxW={"100vw"}
-    >
-      <BannerCarousel articles={articlesData} />
-
-      <Container maxW="100%" py={10}>
-        <Heading
-          fontFamily={"monospace"}
-          borderRadius={"6px"}
-          padding={3}
-          background={"#DDE6ED"}
-          as="h2"
-          size="xl"
-          mb={6}
-          border={"2px solid #1A202C"}
-        >
-          Explore Article
-        </Heading>
-        {/* 
-        <SimpleGrid
-          color={"white"}
-          // columns={{ base: 1, md: 1, lg: 1 }}
-          columns={2}
-          spacing={5}
-        >
-          {articlesData.map((category) => (
-            <CategorySection
-              key={category.categoryId}
-              title={category.categoryName}
-              categoryId={category.categoryId}
-            />
-          ))}
-        </SimpleGrid> */}
-        <NewsArticle />
-      </Container>
-
-      <Footer />
+    <Box maxWidth={"100%"} bgColor={"#E8EDE7"}>
+      <BannerCarousel></BannerCarousel>
+      <Flex height="83vh" width="100%">
+        <Box width="5%" bg="white">
+          <Flex height="100%" justifyContent="center" alignItems="center">
+            <Text
+              fontFamily={"monospace"}
+              transform="rotate(-90deg)"
+              fontSize="6xl"
+            >
+              explore
+            </Text>
+          </Flex>
+        </Box>
+        <Box w={"95%"}>
+          <Box p={6}>
+            <NewsArticle />
+          </Box>
+        </Box>
+      </Flex>
     </Box>
   );
 }

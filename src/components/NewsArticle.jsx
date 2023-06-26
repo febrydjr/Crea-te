@@ -112,8 +112,8 @@ const NewsArticle = () => {
   });
 
   return (
-    <Box bg={"white"} fontFamily="monospace" mt={8}>
-      <Box mb={4}>
+    <Box bg={"#E8EDE7"} fontFamily="monospace" mt={2} mb={6}>
+      <Box mb={6}>
         <Input
           bg={"white"}
           placeholder=" Search"
@@ -135,7 +135,7 @@ const NewsArticle = () => {
           borderRadius="md"
           border="2px solid gray"
           // px={1}
-          py={3}
+          py={0.5}
           mr={2}
         >
           <option value="">All Categories</option>
@@ -172,7 +172,7 @@ const NewsArticle = () => {
                   boxShadow="md"
                   borderRadius="md"
                   bg="white"
-                  border="1px solid gray"
+                  border="2px solid gray"
                   height="100%"
                 >
                   <Link to={`/articles/${article.Blog_Keywords[0].BlogId}`}>
@@ -190,12 +190,13 @@ const NewsArticle = () => {
                         fontFamily="monospace"
                         as="h3"
                         fontSize="xl"
-                        my={4}
+                        // my={4}
+                        mt={4}
                       >
                         {article.title}
                       </Heading>
                       <Box display="flex" justifyContent="space-between">
-                        <Text display="flex">
+                        <Text display="flex" alignItems="center">
                           Created At:{" "}
                           {new Date(article.createdAt).toLocaleDateString()}
                         </Text>
@@ -211,7 +212,7 @@ const NewsArticle = () => {
                       </Box>
                       <Text>Category: {article.Category.name}</Text>
                     </Box>
-                    <Text noOfLines={4} fontSize="md" mt={6}>
+                    <Text noOfLines={4} fontSize="md" mt={4}>
                       {article.content}
                     </Text>
                     <Button
