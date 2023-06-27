@@ -59,6 +59,7 @@ const ChangeUsernameModal = ({ isOpen, onClose }) => {
       console.error("Error changing username:", error);
       toast({
         title: "Error changing username",
+        description: error.response.data,
         status: "error",
         duration: 4000,
         isClosable: true,

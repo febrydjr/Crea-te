@@ -71,6 +71,13 @@ function ChangePasswordPage() {
           isClosable: true,
         });
       } catch (error) {
+        toast({
+          title: "Error changing password",
+          description: error.response.data,
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        })
         console.log(error);
       }
     },

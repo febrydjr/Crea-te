@@ -128,7 +128,7 @@ const NewsArticle = () => {
         />
         <Select
           bg={"white"}
-          placeholder="Filter by Category"
+          placeholder="All Category"
           value={selectedCategory}
           onChange={handleCategoryFilter}
           size="md"
@@ -149,7 +149,7 @@ const NewsArticle = () => {
         </Select>
         <Select
           bg={"white"}
-          placeholder="Sort Order"
+          // placeholder="Sort Order"
           value={sortOrder}
           onChange={handleSortOrder}
           border="2px solid gray"

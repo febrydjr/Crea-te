@@ -44,6 +44,32 @@ function withAuth(Component) {
 
 function MyBlogPage() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [avatar, setAvatar] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "https://minpro-blog.purwadhikabootcamp.com/api/auth",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+        const { username: fetchedUsername, avatar: fetchedAvatar } =
+          response.data;
+        setUsername(fetchedUsername);
+        setAvatar(fetchedAvatar);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <Box px={6} py={4}>
@@ -62,7 +88,7 @@ function MyBlogPage() {
               fontStyle: "italic",
             }}
           >
-            {loginData.username}
+            {username}
           </span>
           , let's
           <span>
@@ -97,12 +123,12 @@ function MyBlogPage() {
             Profile
           </Button> */}
           <Text fontFamily={"monospace"} fontSize={"2xl"} mr={4}>
-            {loginData.username}{" "}
+            {username}
           </Text>
           <Link as={RouterLink} to="/profile">
             <Avatar
               name="User"
-              src="path/to/profile-picture"
+              src={avatar}
               size="lg"
               // mb={2}
             />

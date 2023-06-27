@@ -14,6 +14,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useToast } from "@chakra-ui/react";
 
 const ChangePhoneModal = ({ isOpen, onClose }) => {
   // Define the validation schema using Yup
@@ -21,7 +22,7 @@ const ChangePhoneModal = ({ isOpen, onClose }) => {
     currentPhone: Yup.string().required("Current Phone is required"),
     newPhone: Yup.string().required("New Phone is required"),
   });
-
+  const toast = useToast();
   // Handle form submission
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
@@ -44,10 +45,24 @@ const ChangePhoneModal = ({ isOpen, onClose }) => {
 
       // Handle success response
       console.log("Phone number changed successfully");
+      toast({
+        title: "Phone number changed successfully",
+        description: "check your email for verification",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
       // Show a success message or close the modal
     } catch (error) {
       // Handle error response
       console.error("Error changing phone number:", error);
+      toast({
+        title: "Error changing phone number",
+        description: error.response.data,
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
       // Show an error message to the user
     }
 

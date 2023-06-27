@@ -14,14 +14,14 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-
+import { useToast } from "@chakra-ui/react";
 const ChangeEmailModal = ({ isOpen, onClose }) => {
   // Define the validation schema using Yup
   const validationSchema = Yup.object().shape({
     currentEmail: Yup.string().required("Current Email is required"),
     newEmail: Yup.string().required("New Email is required"),
   });
-
+  const toast = useToast();
   // Handle form submission
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
@@ -44,8 +44,22 @@ const ChangeEmailModal = ({ isOpen, onClose }) => {
 
       // Handle success response
       console.log("Email changed successfully");
+      toast({
+        title: "Email changed successfully",
+        description: "check your email for verification",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
       // Show a success message or close the modal
     } catch (error) {
+      toast({
+        title: "Error changing email",
+        description: error.response.data,
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
       // Handle error response
       console.error("Error changing email:", error);
       // Show an error message to the user
