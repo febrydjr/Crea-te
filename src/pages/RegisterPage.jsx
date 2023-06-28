@@ -58,16 +58,17 @@ const RegisterPage = () => {
         });
       }
     } catch (error) {
-      console.error(error); // Log the error to the console for debugging purposes
-      console.log(error.response.data); // Log the error response data
+      console.error(error);
+      console.log(error.response.data);
     }
   };
 
   return (
     <Box
-      bgImg={
-        "https://i.pinimg.com/originals/3b/e1/cf/3be1cf74f40ee3cad370e4d0932544f2.gif"
-      }
+      // bgImg={
+      //   "https://i.pinimg.com/originals/3b/e1/cf/3be1cf74f40ee3cad370e4d0932544f2.gif"
+      // }
+      bgColor={"#E8EDE7"}
       maxW={"100vw"}
       px={6}
       py={4}

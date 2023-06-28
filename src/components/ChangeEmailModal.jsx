@@ -16,18 +16,15 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 const ChangeEmailModal = ({ isOpen, onClose }) => {
-  // Define the validation schema using Yup
   const validationSchema = Yup.object().shape({
     currentEmail: Yup.string().required("Current Email is required"),
     newEmail: Yup.string().required("New Email is required"),
   });
   const toast = useToast();
-  // Handle form submission
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const token = localStorage.getItem("token");
 
-      // Send the PATCH request to the endpoint with the Authorization header
       await axios.patch(
         "https://minpro-blog.purwadhikabootcamp.com/api/auth/changeEmail",
         {
@@ -42,7 +39,6 @@ const ChangeEmailModal = ({ isOpen, onClose }) => {
         }
       );
 
-      // Handle success response
       console.log("Email changed successfully");
       toast({
         title: "Email changed successfully",
@@ -51,7 +47,6 @@ const ChangeEmailModal = ({ isOpen, onClose }) => {
         duration: 4000,
         isClosable: true,
       });
-      // Show a success message or close the modal
     } catch (error) {
       toast({
         title: "Error changing email",
@@ -60,9 +55,7 @@ const ChangeEmailModal = ({ isOpen, onClose }) => {
         duration: 4000,
         isClosable: true,
       });
-      // Handle error response
       console.error("Error changing email:", error);
-      // Show an error message to the user
     }
 
     setSubmitting(false);

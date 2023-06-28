@@ -17,18 +17,18 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 
 const ChangePhoneModal = ({ isOpen, onClose }) => {
-  // Define the validation schema using Yup
+  
   const validationSchema = Yup.object().shape({
     currentPhone: Yup.string().required("Current Phone is required"),
     newPhone: Yup.string().required("New Phone is required"),
   });
   const toast = useToast();
-  // Handle form submission
+
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const token = localStorage.getItem("token");
 
-      // Send the PATCH request to the endpoint with the Authorization header
+
       await axios.patch(
         "https://minpro-blog.purwadhikabootcamp.com/api/auth/changePhone",
         {
@@ -43,7 +43,7 @@ const ChangePhoneModal = ({ isOpen, onClose }) => {
         }
       );
 
-      // Handle success response
+    
       console.log("Phone number changed successfully");
       toast({
         title: "Phone number changed successfully",
@@ -52,9 +52,9 @@ const ChangePhoneModal = ({ isOpen, onClose }) => {
         duration: 4000,
         isClosable: true,
       });
-      // Show a success message or close the modal
+  
     } catch (error) {
-      // Handle error response
+      
       console.error("Error changing phone number:", error);
       toast({
         title: "Error changing phone number",
@@ -63,7 +63,7 @@ const ChangePhoneModal = ({ isOpen, onClose }) => {
         duration: 4000,
         isClosable: true,
       });
-      // Show an error message to the user
+    
     }
 
     setSubmitting(false);

@@ -25,7 +25,7 @@ function withAuth(Component) {
     }, [isAuthenticated, navigate]);
 
     if (!isAuthenticated) {
-      return null; // or any other placeholder while checking authentication
+      return null; 
     }
 
     return <Component {...props} />;

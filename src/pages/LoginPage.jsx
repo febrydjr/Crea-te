@@ -124,13 +124,14 @@ const LoginPage = () => {
 
   return (
     <Box
-      bgImg={
-        "https://i.pinimg.com/originals/3b/e1/cf/3be1cf74f40ee3cad370e4d0932544f2.gif"
-      }
+      // bgImg={
+      //   "https://i.pinimg.com/originals/3b/e1/cf/3be1cf74f40ee3cad370e4d0932544f2.gif"
+      // }
+      bgColor={"#E8EDE7"}
       maxW={"100vw"}
       maxH={"100vh"}
       px={6}
-      py={4}
+      py={24}
     >
       <Box
         bg={"whitesmoke"}

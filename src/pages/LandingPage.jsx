@@ -39,7 +39,7 @@ function LandingPage() {
   return (
     <Box maxWidth={"100%"} bgColor={"#E8EDE7"}>
       <BannerCarousel></BannerCarousel>
-      <Flex height="122vh" width="100%">
+      <Flex height="85vh" width="100%">
         <Box width="5%" bg="white">
           <Flex height="100%" justifyContent="center" alignItems="center">
             <Text

@@ -16,7 +16,7 @@ import * as Yup from "yup";
 import axios from "axios";
 
 const ForgotPassModal = ({ isOpen, onClose }) => {
-  // Define the validation schema using Yup
+  
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email address")
@@ -26,7 +26,7 @@ const ForgotPassModal = ({ isOpen, onClose }) => {
   // Handle form submission
   const handleSubmit = async (values) => {
     try {
-      // Send the PUT request to the endpoint
+
       await axios.put(
         "https://minpro-blog.purwadhikabootcamp.com/api/auth/forgotPass",
         {
@@ -35,13 +35,12 @@ const ForgotPassModal = ({ isOpen, onClose }) => {
         }
       );
 
-      // Handle success response
       console.log("Password reset email sent successfully");
-      // Show a success message or close the modal
+   
     } catch (error) {
-      // Handle error response
+      
       console.error("Error sending password reset email:", error);
-      // Show an error message to the user
+     
     }
 
     // setSubmitting(false);

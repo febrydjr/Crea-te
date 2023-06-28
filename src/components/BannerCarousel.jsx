@@ -22,17 +22,15 @@ function BannerCarousel() {
     fetchArticles();
   }, []);
 
-  //Sort the articlesData array in descending order based on the date
   const sortedArticlesData = articles.sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
-  // Slice the sorted array to get the 10 most recent articles
   const limitedArticlesData = sortedArticlesData.slice(0, 10);
 
   return (
     <Box>
-      <Carousel showThumbs={false} autoPlay infiniteLoop>
+      <Carousel showThumbs={false} autoPlay infiniteLoop useKeyboardArrows>
         {limitedArticlesData.map((articleData) => (
           <Box key={articleData.id}>
             <Flex

@@ -17,19 +17,19 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 
 const ChangeUsernameModal = ({ isOpen, onClose }) => {
-  // Define the validation schema using Yup
+
   const validationSchema = Yup.object().shape({
     currentUsername: Yup.string().required("Current Username is required"),
     newUsername: Yup.string().required("New Username is required"),
   });
 
-  // Handle form submission
+ 
   const toast = useToast();
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const token = localStorage.getItem("token");
 
-      // Send the PATCH request to the endpoint with the Authorization header
+    
       await axios.patch(
         "https://minpro-blog.purwadhikabootcamp.com/api/auth/changeUsername",
         {
@@ -44,7 +44,7 @@ const ChangeUsernameModal = ({ isOpen, onClose }) => {
         }
       );
 
-      // Handle success response
+   
       console.log("Username changed successfully");
       toast({
         title: "Username changed successfully",
@@ -53,7 +53,7 @@ const ChangeUsernameModal = ({ isOpen, onClose }) => {
         duration: 4000,
         isClosable: true,
       });
-      // Show a success message or close the modal
+    
     } catch (error) {
       // Handle error response
       console.error("Error changing username:", error);
@@ -64,7 +64,7 @@ const ChangeUsernameModal = ({ isOpen, onClose }) => {
         duration: 4000,
         isClosable: true,
       });
-      // Show an error message to the user
+    
     }
 
     setSubmitting(false);
