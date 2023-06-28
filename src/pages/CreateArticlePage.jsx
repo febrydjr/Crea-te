@@ -174,7 +174,7 @@ const SimpleGridChakra = () => {
 
                   <Input
                     type="text"
-                    placeholder="Country?"
+                    placeholder="Country of Origin"
                     id="country"
                     mb={"10px"}
                     border={"1px solid #378BA4"}
