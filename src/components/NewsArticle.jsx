@@ -187,6 +187,7 @@ const NewsArticle = () => {
                     />
                     <Box>
                       <Heading
+                        noOfLines={2}
                         fontFamily="monospace"
                         as="h3"
                         fontSize="xl"

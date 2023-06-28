@@ -6,7 +6,7 @@ function SearchResults() {
   const { filteredArticles } = location.state;
 
   return (
-    <Box fontFamily={"monospace"} mb={48} p={4}>
+    <Box bg={"#E8EDE7"} fontFamily={"monospace"} p={4}>
       <Heading fontFamily={"monospace"} mb={4}>
         Search Results
       </Heading>
@@ -15,9 +15,11 @@ function SearchResults() {
         <SimpleGrid columns={[2, null, 3]} spacing={4}>
           {filteredArticles.map((article) => (
             <Box
+              bgColor={"white"}
               key={article.id}
               border={"1px solid lightgray"}
               borderWidth="1px"
+              borderRadius={"lg"}
               p={4}
             >
               <Image src={article.thumbnail}></Image>

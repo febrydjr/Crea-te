@@ -48,7 +48,7 @@ const ArticlePage = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        "https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=3&sort=ASC&page=1"
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog"
       );
       setArticles(response.data.result);
     } catch (error) {
@@ -112,17 +112,20 @@ const ArticlePage = () => {
       p={4}
     >
       {/* <SimpleGrid> */}
-      <Box maxW="1500px" mx="auto" mb={6}>
+      <Box maxW="1000px" mx="auto" mb={6}>
         <Box
           bgColor={"white"}
-          borderWidth="1px"
-          borderRadius="lg"
+          // borderWidth="1px"
+          borderRadius="xl"
           overflow="hidden"
         >
-          <Image
-            src={`https://minpro-blog.purwadhikabootcamp.com/${currentArticle.imageURL}`}
-            alt={currentArticle.title}
-          />
+          <Box display={"flex"} justifyContent={"center"}>
+            <Image
+              w={"100%"}
+              src={`https://minpro-blog.purwadhikabootcamp.com/${currentArticle.imageURL}`}
+              alt={currentArticle.title}
+            />
+          </Box>
 
           <Box p={4}>
             <Box display={"flex"} justifyContent={"flex-end"}>

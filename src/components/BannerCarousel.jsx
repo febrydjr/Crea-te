@@ -10,7 +10,7 @@ function BannerCarousel() {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        "https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=3&sort=ASC&page=1"
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog"
       );
       setArticles(response.data.result);
     } catch (error) {

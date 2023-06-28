@@ -21,14 +21,12 @@ import Footer from "./components/Footer";
 import CheckLogin from "./pages/CheckLogin";
 import TestProfile from "./pages/SidebarProfile";
 import SearchResults from "./pages/SearchResults";
-// import VerificationPage from "./pages/VerifyPage";
 import VerificationPage from "./pages/VerificationPage";
 import VerificationEmail from "./pages/VerificationEmail";
 import SidebarProfile from "./pages/SidebarProfile";
 
 function App() {
   const [articles, setArticles] = useState([]);
-  const [blogs, setBlogs] = useState([]);
 
   return (
     <ChakraProvider>
@@ -48,7 +46,6 @@ function App() {
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
         <Route path="/profile" element={<SidebarProfile />} />
-        {/* <Route path="/updateprofile" element={<ProfilePage />} /> */}
         <Route path="/myblogs" element={<MyBlogsPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/verification/:token" element={<VerificationPage />} />

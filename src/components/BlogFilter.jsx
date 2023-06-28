@@ -115,15 +115,17 @@ const BlogFilter = () => {
         {sortedArticles.map((article) => (
           <Box
             // bgImage={"https://picsum.photos/700/300?random" + article.id}
-            bgImage={
-              "https://marketplace.canva.com/EAD2962NKnQ/2/0/1600w/canva-rainbow-gradient-pink-and-purple-virtual-background-_Tcjok-d9b4.jpg"
-            }
+            // bgImage={
+            //   "https://marketplace.canva.com/EAD2962NKnQ/2/0/1600w/canva-rainbow-gradient-pink-and-purple-virtual-background-_Tcjok-d9b4.jpg"
+            // }
+            bgColor={"#E8EDE7"}
             key={article.id}
             border={"1px solid lightgray"}
             borderWidth="1px"
             p={4}
+            borderRadius={"lg"}
           >
-            <Text fontSize={"lg"} mb={2} fontWeight="bold">
+            <Text noOfLines={2} fontSize={"lg"} mb={2} fontWeight="bold">
               {article.title}
             </Text>
             <Image
@@ -134,23 +136,14 @@ const BlogFilter = () => {
               {article.title}
             </Box> */}
             <Box>{article.category}</Box>
-            <Box>{article.author}</Box>
-            <Box>{article.date}</Box>
+            {/* <Box>{article.User.username}</Box> */}
+            <Box mt={2}>{new Date(article.createdAt).toLocaleDateString()}</Box>
             <Box fontSize={"md"} mt={2}>
-              {article.content.slice(0, 200)}
+              {article.content.slice(0, 150)}
             </Box>
           </Box>
         ))}
       </SimpleGrid>
-      {/* <Button
-        size="sm"
-        variant="solid"
-        colorScheme="teal"
-        mr={2}
-        onClick={() => navigate("/create-article")}
-      >
-        Create Article
-      </Button> */}
     </Box>
   );
 };
