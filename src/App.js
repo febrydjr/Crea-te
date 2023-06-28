@@ -14,57 +14,27 @@ import LoginPage from "./pages/LoginPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ProfilePage from "./pages/ProfilePage";
-import ProfilePictureUpload from "./components/ProfilePictureUpload";
 import MyBlogsPage from "./pages/MyBlogsPage";
 import FavoritesPage from "./pages/FavoritesPage";
-import CreateBlogPage from "./pages/CreateBlogPage";
-import BlogDetailPage from "./pages/BlogDetailPage";
 import BlogFilter from "./components/BlogFilter";
-import BlogSort from "./components/BlogSort";
 import Footer from "./components/Footer";
 import CheckLogin from "./pages/CheckLogin";
-import TestProfile from "./pages/TestProfile";
+import TestProfile from "./pages/SidebarProfile";
 import SearchResults from "./pages/SearchResults";
 // import VerificationPage from "./pages/VerifyPage";
 import VerificationPage from "./pages/VerificationPage";
 import VerificationEmail from "./pages/VerificationEmail";
+import SidebarProfile from "./pages/SidebarProfile";
 
 function App() {
   const [articles, setArticles] = useState([]);
   const [blogs, setBlogs] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
-  // Fetch all articles on component mount
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch("/api/articles");
-        const data = await response.json();
-        setArticles(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchArticles();
-  }, []);
-
-  // Fetch all blogs on component mount
-  useEffect(() => {
-    fetch("/api/blogs")
-      .then((response) => response.json())
-      .then((data) => setBlogs(data))
-      .catch((error) => console.error(error));
-  }, []);
 
   return (
     <ChakraProvider>
       <Navbar />
       <Routes>
-        <Route
-          path="/"
-          element={<LandingPage articles={articles} blogs={blogs} />}
-        />
+        <Route path="/" element={<LandingPage />} />
         <Route
           path="/articles/:id"
           element={<ArticlePage articles={articles} />}
@@ -77,27 +47,16 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-        <Route path="/profile" element={<TestProfile />} />
-        <Route path="/updateprofile" element={<ProfilePage />} />
-        <Route
-          path="/profile-picture-upload"
-          element={<ProfilePictureUpload />}
-        />
+        <Route path="/profile" element={<SidebarProfile />} />
+        {/* <Route path="/updateprofile" element={<ProfilePage />} /> */}
         <Route path="/myblogs" element={<MyBlogsPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/create-blog" element={<CreateBlogPage />} />
-        <Route path="/blogs/:id" element={<BlogDetailPage blogs={blogs} />} />
-        {/* <Route path="/verification/:token" element={<VerifyPage />} /> */}
         <Route path="/verification/:token" element={<VerificationPage />} />
-        {/* <Route path="/verification/:token" element={<VerificationPage />} /> */}
         <Route
           path="/verification-change-email/:token"
           element={<VerificationEmail />}
         />
-        {/* <Route path="/verification/:token" component={VerificationPage} /> */}
       </Routes>
-      {/* <BlogFilter blogs={blogs} setBlogs={setBlogs} />
-      <BlogSort blogs={blogs} setBlogs={setBlogs} /> */}
       <Footer />
     </ChakraProvider>
   );

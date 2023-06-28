@@ -82,7 +82,7 @@ const BlogFilter = () => {
       <FormControl mb={4}>
         <FormLabel>Search</FormLabel>
         <Input
-          placeholder="Search title, author, keyowords, etc"
+          placeholder="Search title, author, keywords, etc"
           type="text"
           value={filter}
           onChange={handleFilterChange}

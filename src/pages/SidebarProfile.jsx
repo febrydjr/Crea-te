@@ -25,6 +25,7 @@ import ForgotPassModal from "../components/ForgotPassModal";
 import ChangeUsernameModal from "../components/ChangeUsernameModal";
 import ChangePhoneModal from "../components/ChangePhoneModal";
 import ChangeEmailModal from "../components/ChangeEmailModal";
+import MyBlogsPage from "./MyBlogsPage";
 
 function withAuth(Component) {
   return function WrappedComponent(props) {
@@ -45,7 +46,7 @@ function withAuth(Component) {
   };
 }
 
-const TestProfile = () => {
+const SidebarProfile = () => {
   const [activePage, setActivePage] = useState("updateprofile");
   const [avatar, setAvatar] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -82,12 +83,6 @@ const TestProfile = () => {
   const renderPage = () => {
     switch (activePage) {
       case "updateprofile":
-        return <ProfilePage />;
-      case "changeusername":
-        return <ProfilePage />;
-      case "changephone":
-        return <ProfilePage />;
-      case "changeemail":
         return <ProfilePage />;
       case "changepassword":
         return <ChangePasswordPage />;
@@ -242,4 +237,4 @@ const TestProfile = () => {
   );
 };
 
-export default withAuth(TestProfile);
+export default withAuth(SidebarProfile);

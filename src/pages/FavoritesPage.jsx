@@ -112,7 +112,7 @@ function FavoritesPage() {
         size="xl"
         mb={4}
       >
-        Terbaru
+        Favorites
       </Heading>
       <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={4}>
         {favoriteArticles?.map((article) => (

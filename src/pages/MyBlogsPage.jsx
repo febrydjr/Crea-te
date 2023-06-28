@@ -21,7 +21,6 @@ import ArticleCard from "../components/ArticleCard";
 import articlesData from "../data/articles";
 import FavoritesPage from "./FavoritesPage";
 import BlogFilter from "../components/BlogFilter";
-import BlogSort from "../components/BlogSort";
 import loginData from "../data/loginData";
 function withAuth(Component) {
   return function WrappedComponent(props) {
@@ -110,18 +109,6 @@ function MyBlogPage() {
         </Heading>
 
         <Box display="flex" alignItems="center" m={"left"}>
-          {/* <Button
-            size="md"
-            variant="solid"
-            colorScheme="facebook"
-            mr={6}
-            onClick={() => navigate("/create-article")}
-          >
-            Create Article
-          </Button> */}
-          {/* <Button as={Link} to="/profile" size="sm" variant="outline" mr={4}>
-            Profile
-          </Button> */}
           <Text fontFamily={"monospace"} fontSize={"2xl"} mr={4}>
             {username}
           </Text>

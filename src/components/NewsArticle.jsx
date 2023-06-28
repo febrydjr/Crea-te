@@ -128,7 +128,7 @@ const NewsArticle = () => {
         />
         <Select
           bg={"white"}
-          placeholder="All Category"
+          // placeholder="All Category"
           value={selectedCategory}
           onChange={handleCategoryFilter}
           size="md"
