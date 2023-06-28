@@ -202,4 +202,4 @@ const SimpleGridChakra = () => {
   );
 };
 
-export default SimpleGridChakra;
+export default withAuth(SimpleGridChakra);
