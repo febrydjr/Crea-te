@@ -49,14 +49,56 @@ const BlogFilter = () => {
     setCategory(event.target.value);
   };
 
+  // const filteredArticles = articles
+  //   .filter(
+  //     (article) =>
+  //       article.title.toLowerCase().includes(filter.toLowerCase()) ||
+  //       article.category.toLowerCase().includes(filter.toLowerCase()) ||
+  //       article.author.toLowerCase().includes(filter.toLowerCase()) ||
+  //       (article.keywords &&
+  //         article.keywords.toLowerCase().includes(filter.toLowerCase()))
+  //   )
+  //   .filter(
+  //     (article) =>
+  //       category === "" ||
+  //       article.category.toLowerCase() === category.toLowerCase()
+  //   );
+  const [username, setUsername] = useState("");
+  const [avatar, setAvatar] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "https://minpro-blog.purwadhikabootcamp.com/api/auth",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+        const { username: fetchedUsername, avatar: fetchedAvatar } =
+          response.data;
+        setUsername(fetchedUsername);
+        setAvatar(fetchedAvatar);
+        console.log(username);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   const filteredArticles = articles
     .filter(
       (article) =>
-        article.title.toLowerCase().includes(filter.toLowerCase()) ||
-        article.category.toLowerCase().includes(filter.toLowerCase()) ||
-        article.author.toLowerCase().includes(filter.toLowerCase()) ||
-        (article.keywords &&
-          article.keywords.toLowerCase().includes(filter.toLowerCase()))
+        (article.title.toLowerCase().includes(filter.toLowerCase()) ||
+          article.category.toLowerCase().includes(filter.toLowerCase()) ||
+          article.author.toLowerCase().includes(filter.toLowerCase()) ||
+          (article.keywords &&
+            article.keywords.toLowerCase().includes(filter.toLowerCase()))) &&
+        article.User.username.toLowerCase() === username
     )
     .filter(
       (article) =>
@@ -138,6 +180,7 @@ const BlogFilter = () => {
             <Box>{article.category}</Box>
             {/* <Box>{article.User.username}</Box> */}
             <Box mt={2}>{new Date(article.createdAt).toLocaleDateString()}</Box>
+            <Box mb={4}>{article.User.username} </Box>
             <Box fontSize={"md"} mt={2}>
               {article.content.slice(0, 150)}
             </Box>
